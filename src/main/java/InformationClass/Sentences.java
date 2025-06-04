@@ -1,7 +1,7 @@
 package InformationClass;
 
 /**
- * class contain constructor which get string sentence
+ * class sentences contain method mainSentence which print comunicate
  */
 public class Sentences {
     public void mainSentence(String comunicate){
