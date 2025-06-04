@@ -19,6 +19,7 @@ public class Main {
             showSentence.mainSentence("Czy wygenerować wiadomość");
         } else {
             showSentence.mainSentence("Podany tekst nie jest mailem");
+
         }
 
 
