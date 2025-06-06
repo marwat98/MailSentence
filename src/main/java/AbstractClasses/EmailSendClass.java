@@ -1,29 +1,34 @@
 package AbstractClasses;
 
 import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public abstract class EmailSendClass {
     protected final String myEmail;
     protected final String sendEmail;
     protected final String hostAdress;
-    Properties props = new Properties();
+    protected final String password;
+    protected final Properties props = new Properties();
 
-
-    public EmailSendClass(String myEmail,String sendEmail, String hostAdress){
+    public EmailSendClass(String myEmail,String sendEmail, String hostAdress, String password){
         this.myEmail = myEmail;
         this.sendEmail = sendEmail;
         this.hostAdress = hostAdress;
+        this.password = password;
     }
 
-    public Properties getConfigureMail(String stmpHostName, String serwerMail){
-        return (Properties) props.put(stmpHostName,serwerMail);
-    }
-    public Session getSessionInstance(Authenticator authenticator){
-        return Session.getInstance(props,)
+    public void addProperty(String key, String value) {
+        props.put(key, value);
     }
 
-
+    public Session getSessionInstance(){
+        return Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(myEmail,password);
+            }
+        });
+    }
 }
