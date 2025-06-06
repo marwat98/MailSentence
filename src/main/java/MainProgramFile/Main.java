@@ -1,4 +1,4 @@
-package srcMailSentence;
+package MainProgramFile;
 
 import InformationClass.Sentences;
 import org.apache.commons.validator.routines.EmailValidator;
