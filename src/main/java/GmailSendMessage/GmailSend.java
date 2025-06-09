@@ -36,8 +36,8 @@ public class GmailSend extends EmailSendClass {
             MimeMessage message = new MimeMessage(getSessionInstance());
             message.setFrom(new InternetAddress(myEmail));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendEmail));
-            message.setSubject("Testing Gmail SSL");
-            message.setText("Dear Mail Crawler,\n\nPlease do not spam my email!");
+            message.setSubject("Topic");
+            message.setText("Text");
 
             Transport.send(message);
             System.out.println("Email sent successfully.");

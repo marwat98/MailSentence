@@ -1,5 +1,6 @@
 package MainProgramFile;
 
+import GmailSendMessage.GmailSend;
 import InformationClass.Sentences;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -14,9 +15,12 @@ public class Main {
         showSentence.mainSentence("-------Mail_Sentence_Program-------");
         showSentence.mainSentence("1.Wpisz email: ");
         String input = scanner.nextLine();
+        GmailSend gmail = new GmailSend("yourmail@gmail.com","sendmail@gmail.com","hostAdress","appPassword");
+
 
         if(email.isValid(input)){
-            showSentence.mainSentence("Czy wygenerować wiadomość");
+            gmail.gmailPuts();
+            gmail.sendMail();
         } else {
             showSentence.mainSentence("Podany tekst nie jest mailem");
 
