@@ -13,7 +13,7 @@ public class Main {
         Sentences showSentence = new Sentences();
         EmailValidator email = EmailValidator.getInstance();
         File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
-        boolean isValid;
+
 
         showSentence.mainSentence("");
         showSentence.mainSentence("-------Mail_Sentence_Program-------");
@@ -26,8 +26,6 @@ public class Main {
 
         switch(choose){
             case 1 ->{
-               do{
-                   isValid = true;
                    showSentence.mainSentence("-----------------------------------");
                    showSentence.mainSentence(" Choose option in your email file  ");
                    showSentence.mainSentence("-----------------------------------");
@@ -36,10 +34,10 @@ public class Main {
                    showSentence.mainSentence("-----------------------------------");
                    System.out.print("Choose: ");
                    String writeEmail = scanner.next();
+
                    String checkWriteEmail = (email.isValid(writeEmail)) ? "Sucess!! Your email is right" : "You write wrong email try again";
                    System.out.println(checkWriteEmail);
 
-               } while(!isValid);
 
 
             }

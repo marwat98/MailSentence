@@ -1,6 +1,6 @@
 package GmailSendMessage;
 
-import AbstractClasses.EmailSendClass;
+import AbstractClass.EmailSendClass;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
