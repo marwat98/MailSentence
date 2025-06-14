@@ -18,7 +18,7 @@ public abstract class EmailSendClass {
         this.hostAdress = hostAdress;
         this.password = password;
     }
-    // methos which add key and value to put method of Properties class
+    // method which add key and value to put method of Properties class
     public void addProperty(String key, String value) {
         props.put(key, value);
     }

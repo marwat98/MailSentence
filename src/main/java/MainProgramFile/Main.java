@@ -1,5 +1,7 @@
 package MainProgramFile;
 
+import AbstractClass.FileWriter;
+import FileWriterClass.FileWriterClass;
 import GmailSendMessage.GmailSend;
 import InformationClass.Sentences;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -13,6 +15,7 @@ public class Main {
         Sentences showSentence = new Sentences();
         EmailValidator email = EmailValidator.getInstance();
         File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
+        int choose;
 
 
         showSentence.mainSentence("");
@@ -22,7 +25,7 @@ public class Main {
         showSentence.mainSentence("2.Set email call");
         showSentence.mainSentence("-----------------------------------");
         System.out.print("Choose: ");
-        int choose = scanner.nextInt();
+        choose = scanner.nextInt();
 
         switch(choose){
             case 1 ->{
@@ -33,13 +36,17 @@ public class Main {
                    showSentence.mainSentence("2. Show your email file");
                    showSentence.mainSentence("-----------------------------------");
                    System.out.print("Choose: ");
-                   String writeEmail = scanner.next();
+                   choose = scanner.nextInt();
 
-                   String checkWriteEmail = (email.isValid(writeEmail)) ? "Sucess!! Your email is right" : "You write wrong email try again";
-                   System.out.println(checkWriteEmail);
-
-
-
+                   if(choose == 1){
+                       FileWriterClass fileWriter = new FileWriterClass(myEmailFile);
+                       String writeEmail = scanner.next();
+                       String checkWriteEmail = (email.isValid(writeEmail)) ? "Sucess!! Your email is right" : "You write wrong email try again";
+                       System.out.println(checkWriteEmail);
+                       fileWriter.writeEmailInFile(writeEmail);
+                   } else {
+                       System.out.println("Show your email file");
+                   }
             }
             case 2 ->{
 
