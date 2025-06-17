@@ -1,12 +1,13 @@
 package MainProgramFile;
 
-import AbstractClass.FileWriter;
-import FileWriterClass.FileWriterClass;
+import AbstractClass.FileManager;
+import FileClass.FileClass;
 import GmailSendMessage.GmailSend;
 import InformationClass.Sentences;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -15,6 +16,7 @@ public class Main {
         Sentences showSentence = new Sentences();
         EmailValidator email = EmailValidator.getInstance();
         File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
+        FileClass file = new FileClass(myEmailFile);
         int choose;
 
 
@@ -39,13 +41,16 @@ public class Main {
                    choose = scanner.nextInt();
 
                    if(choose == 1){
-                       FileWriterClass fileWriter = new FileWriterClass(myEmailFile);
                        String writeEmail = scanner.next();
                        String checkWriteEmail = (email.isValid(writeEmail)) ? "Sucess!! Your email is right" : "You write wrong email try again";
                        System.out.println(checkWriteEmail);
-                       fileWriter.writeEmailInFile(writeEmail);
+                       file.writeEmailInFile(writeEmail);
                    } else {
-                       System.out.println("Show your email file");
+                       try {
+                           file.showEmails();
+                       } catch (IOException e) {
+                           throw new RuntimeException(e);
+                       }
                    }
             }
             case 2 ->{
@@ -54,17 +59,6 @@ public class Main {
         }
 
         GmailSend gmail = new GmailSend("yourmail@gmail.com","sendmail@gmail.com","hostAdress","appPassword");
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }
