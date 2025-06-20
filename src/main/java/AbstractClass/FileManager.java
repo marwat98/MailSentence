@@ -3,7 +3,6 @@ package AbstractClass;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 public abstract class FileManager {
     protected File fileName;

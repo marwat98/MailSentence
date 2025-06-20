@@ -12,10 +12,10 @@ public class FileClass extends FileManager {
     // method which write email to file
     @Override
     public void writeEmailInFile(String text){
-        try{
-            BufferedWriter writer = new BufferedWriter(new java.io.FileWriter(fileName));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
             writer.write(text);
-            writer.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("File doesn't exist: " + e.getMessage());
         } catch(IOException e){
             System.out.println("Error: Save text in file isn't possible " + e.getMessage());
         }
@@ -23,19 +23,15 @@ public class FileClass extends FileManager {
     //method which showing email of file
     @Override
     public void showEmails() throws IOException {
-        try {
-            BufferedReader bufferReader = new BufferedReader(new FileReader(fileName));
-            StringBuilder builder = new StringBuilder();
-            String line = bufferReader.readLine();
-            while (line != null) {
-                builder.append(line);
-                line = bufferReader.readLine();
+        try (BufferedReader bufferReader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = bufferReader.readLine()) != null) {
+                System.out.println(line);
             }
-            String everything = builder.toString();
-            System.out.println(everything);
-            bufferReader.close();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.err.println("File doesn't exist: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
         }
     }
 }
