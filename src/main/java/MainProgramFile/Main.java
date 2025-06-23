@@ -7,9 +7,11 @@ import JavaFXClass.ButtonManager;
 import JavaFXClass.SceneManager;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -27,8 +29,11 @@ import java.util.Scanner;
 public class Main  extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        // Class which get stage and take methods
         SceneManager sceneManager = new SceneManager(stage);
+        EmailValidator email = EmailValidator.getInstance();
+        File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
+        FileClass file = new FileClass(myEmailFile);
+
         //Menu Label view
         Label label = new Label("Menu");
         label.setFont(Font.font("Times New Roman", FontWeight.BOLD, 24));
@@ -44,9 +49,25 @@ public class Main  extends Application {
         //Buttons actions
         setYourEmail.setOnAction(e->{
             //Scene where you set your email
-            StackPane pane = new StackPane();
+            VBox vboxYourEmail = new VBox();
+            Button buttonReturn = new Button("Return");
+            Separator separator = new Separator();
+            separator.setOrientation(Orientation.HORIZONTAL);
+
+            VBox.setMargin(buttonReturn,new Insets(10,0,0,10));
+            VBox.setMargin(separator,new Insets(10,0,10,0));
+            vboxYourEmail.getChildren().addAll(buttonReturn,separator);
+
+            HBox hboxYourEmail = new HBox(10);
+            Button buttonCancel = new Button("Cancel");
+            Button buttonSave = new Button("Save");
+            hboxYourEmail.setAlignment(Pos.BOTTOM_RIGHT);
+            HBox.setMargin(buttonSave,new Insets(0,50,50,0));
+            HBox.setMargin(buttonCancel,new Insets(0,0,50,0));
+
+            StackPane pane = new StackPane(vboxYourEmail,hboxYourEmail);
             Scene scene = sceneManager.scenePanel(pane,700,400);
-            sceneManager.openPanel(scene,null);
+            sceneManager.openPanel(scene,"EmailAI");
         });
 
         //Vbox settings
