@@ -48,15 +48,16 @@ public class Main  extends Application {
 
         //Buttons actions
         setYourEmail.setOnAction(e->{
-            //Scene where you set your email
-            VBox vboxYourEmail = new VBox();
-            Button buttonReturn = new Button("Return");
-            Separator separator = new Separator();
-            separator.setOrientation(Orientation.HORIZONTAL);
+            //Top part of window
+//            VBox vboxYourEmail = new VBox();
+//            Button buttonReturn = new Button("Return");
+//            Separator separator = new Separator();
+//            separator.setOrientation(Orientation.HORIZONTAL);
+//            VBox.setMargin(buttonReturn,new Insets(10,0,0,10));
+//            VBox.setMargin(separator,new Insets(10,0,10,0));
+//            vboxYourEmail.getChildren().addAll(buttonReturn,separator);
 
-            VBox.setMargin(buttonReturn,new Insets(10,0,0,10));
-            VBox.setMargin(separator,new Insets(10,0,10,0));
-            vboxYourEmail.getChildren().addAll(buttonReturn,separator);
+
 
             HBox hboxYourEmail = new HBox(10);
             Button buttonCancel = new Button("Cancel");
@@ -65,7 +66,7 @@ public class Main  extends Application {
             HBox.setMargin(buttonSave,new Insets(0,50,50,0));
             HBox.setMargin(buttonCancel,new Insets(0,0,50,0));
 
-            StackPane pane = new StackPane(vboxYourEmail,hboxYourEmail);
+            StackPane pane = new StackPane(vboxYourEmail);
             Scene scene = sceneManager.scenePanel(pane,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });
