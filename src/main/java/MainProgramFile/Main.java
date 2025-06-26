@@ -5,6 +5,7 @@ import GmailSendMessage.GmailSend;
 import InformationClass.Sentence;
 import JavaFXClass.ButtonManager;
 import JavaFXClass.SceneManager;
+import JavaFXClass.SetYourEmailClass;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -48,6 +49,12 @@ public class Main  extends Application {
 
         //Buttons actions
         setYourEmail.setOnAction(e->{
+            SetYourEmailClass setEmail = new SetYourEmailClass();
+            HBox hbox = new HBox(10);
+            VBox vbox = new VBox();
+            setEmail.topPartOfSetYourEmailWindow(hbox);
+            setEmail.middlePartOfSetYourEmailWindow(vbox);
+
             //Top part of window
 //            VBox vboxYourEmail = new VBox();
 //            Button buttonReturn = new Button("Return");
@@ -59,14 +66,14 @@ public class Main  extends Application {
 
 
 
-            HBox hboxYourEmail = new HBox(10);
-            Button buttonCancel = new Button("Cancel");
-            Button buttonSave = new Button("Save");
-            hboxYourEmail.setAlignment(Pos.BOTTOM_RIGHT);
-            HBox.setMargin(buttonSave,new Insets(0,50,50,0));
-            HBox.setMargin(buttonCancel,new Insets(0,0,50,0));
+//            HBox hboxYourEmail = new HBox(10);
+//            Button buttonCancel = new Button("Cancel");
+//            Button buttonSave = new Button("Save");
+//            hboxYourEmail.setAlignment(Pos.BOTTOM_RIGHT);
+//            HBox.setMargin(buttonSave,new Insets(0,50,50,0));
+//            HBox.setMargin(buttonCancel,new Insets(0,0,50,0));
 
-            StackPane pane = new StackPane(vboxYourEmail);
+            StackPane pane = new StackPane(hbox,vbox);
             Scene scene = sceneManager.scenePanel(pane,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });
