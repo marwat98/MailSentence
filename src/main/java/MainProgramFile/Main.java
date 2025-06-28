@@ -1,19 +1,14 @@
 package MainProgramFile;
 
 import FileClass.FileClass;
-import GmailSendMessage.GmailSend;
-import InformationClass.Sentence;
 import JavaFXClass.ButtonManager;
 import JavaFXClass.SceneManager;
-import JavaFXClass.SetYourEmailClass;
+import JavaFXClass.SetYourEmail;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -23,9 +18,8 @@ import javafx.stage.Stage;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.File;
-import java.io.IOException;
+
 import javafx.scene.control.Label;
-import java.util.Scanner;
 
 public class Main  extends Application {
     @Override
@@ -42,18 +36,20 @@ public class Main  extends Application {
 
         //Menu buttons option
         ButtonManager button = new ButtonManager();
-        Button setYourEmail = button.setButtonSize("Set Your Email");
-        Button setSendEmail = button.setButtonSize("Set Send Email");
-        Button settings = button.setButtonSize("Settings");
-        Button exit = button.setButtonSize("Exit");
+        Button setYourEmail = button.setButtonSize("Set Your Email",200, 40);
+        Button setSendEmail = button.setButtonSize("Set Send Email",200, 40);
+        Button settings = button.setButtonSize("Settings",200, 40);
+        Button exit = button.setButtonSize("Exit",200, 40);
 
         //Buttons actions
         setYourEmail.setOnAction(e->{
-            SetYourEmailClass setEmail = new SetYourEmailClass();
+            SetYourEmail setEmail = new SetYourEmail();
             HBox hbox = new HBox(10);
             VBox vbox = new VBox();
+            HBox hboxButtons = new HBox();
             setEmail.topPartOfSetYourEmailWindow(hbox);
             setEmail.middlePartOfSetYourEmailWindow(vbox);
+            setEmail.buttonPartOfSetYourEmailWindow(hboxButtons);
 
             //Top part of window
 //            VBox vboxYourEmail = new VBox();
@@ -73,7 +69,7 @@ public class Main  extends Application {
 //            HBox.setMargin(buttonSave,new Insets(0,50,50,0));
 //            HBox.setMargin(buttonCancel,new Insets(0,0,50,0));
 
-            StackPane pane = new StackPane(hbox,vbox);
+            StackPane pane = new StackPane(hbox,vbox,hboxButtons);
             Scene scene = sceneManager.scenePanel(pane,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });

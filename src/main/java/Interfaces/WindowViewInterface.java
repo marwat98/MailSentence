@@ -4,8 +4,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public interface SetYourEmailWindowInterface {
+public interface WindowViewInterface {
     HBox topPartOfSetYourEmailWindow(HBox hbox);
     VBox middlePartOfSetYourEmailWindow(VBox vbox);
-    VBox buttonPartOfSetYourEmailWindow(Button cancel, Button save);
+    HBox buttonPartOfSetYourEmailWindow(HBox vbox);
 }
