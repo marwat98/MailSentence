@@ -14,9 +14,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 
+import java.io.File;
 import java.util.Date;
 
 public class SetYourEmail implements WindowViewInterface {
+
 
     /**
      * method builds and return top part of the email settings view
@@ -24,7 +26,7 @@ public class SetYourEmail implements WindowViewInterface {
      * @return hbox containing (Label , TextField , Button)
      */
     @Override
-    public HBox topPartOfSetYourEmailWindow(HBox hbox ) {
+    public HBox topPartOfWindow(HBox hbox ) {
         Label label = new Label("Write your email:");
         label.setFont(Font.font("Times New Roman", FontWeight.BOLD, 15));
 
@@ -47,7 +49,7 @@ public class SetYourEmail implements WindowViewInterface {
      * @return vbox containing (TableView , TableColumn )
      */
     @Override
-    public VBox middlePartOfSetYourEmailWindow(VBox vbox) {
+    public VBox middlePartOfWindow(VBox vbox) {
          TableView<TableEmail> tableEmail = new TableView<>();
          tableEmail.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -78,7 +80,7 @@ public class SetYourEmail implements WindowViewInterface {
      * @return hbox containg buttons
      */
     @Override
-    public HBox buttonPartOfSetYourEmailWindow(HBox hbox) {
+    public HBox buttonPartOfWindow(HBox hbox) {
         ButtonManager button = new ButtonManager();
         Button cancel = button.setButtonSize("Cancel",100, 20);
         Button edit = button.setButtonSize("Edit",100, 20);

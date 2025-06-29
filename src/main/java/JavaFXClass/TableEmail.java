@@ -1,5 +1,6 @@
 package JavaFXClass;
 
+
 import java.util.Date;
 
 public class TableEmail {
@@ -7,7 +8,7 @@ public class TableEmail {
     private final String email;
     private final Date date;
 
-    public TableEmail(String email, int id, Date date){
+    TableEmail(String email, int id, Date date){
         this.id = id;
         this.email = email;
         this.date = date;

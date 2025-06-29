@@ -1,6 +1,5 @@
 package MainProgramFile;
 
-import FileClass.FileClass;
 import JavaFXClass.ButtonManager;
 import JavaFXClass.SceneManager;
 import JavaFXClass.SetYourEmail;
@@ -26,8 +25,6 @@ public class Main  extends Application {
     public void start(Stage stage) throws Exception {
         SceneManager sceneManager = new SceneManager(stage);
         EmailValidator email = EmailValidator.getInstance();
-        File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
-        FileClass file = new FileClass(myEmailFile);
 
         //Menu Label view
         Label label = new Label("Menu");
@@ -47,9 +44,9 @@ public class Main  extends Application {
             HBox hbox = new HBox(10);
             VBox vbox = new VBox();
             HBox hboxButtons = new HBox();
-            setEmail.topPartOfSetYourEmailWindow(hbox);
-            setEmail.middlePartOfSetYourEmailWindow(vbox);
-            setEmail.buttonPartOfSetYourEmailWindow(hboxButtons);
+            setEmail.topPartOfWindow(hbox);
+            setEmail.middlePartOfWindow(vbox);
+            setEmail.buttonPartOfWindow(hboxButtons);
 
             //Top part of window
 //            VBox vboxYourEmail = new VBox();

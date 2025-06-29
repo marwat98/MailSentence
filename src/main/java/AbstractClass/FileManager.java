@@ -3,6 +3,7 @@ package AbstractClass;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 
 public abstract class FileManager {
     protected File fileName;
@@ -13,5 +14,5 @@ public abstract class FileManager {
 
     public abstract void writeEmailInFile(String text);
 
-    public abstract void showEmails() throws IOException;
+    public abstract void showEmails(int id, String email, Date date);
 }
