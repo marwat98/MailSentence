@@ -2,8 +2,7 @@ package JavaFXClass;
 
 import AbstractClass.FileManager;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
@@ -20,19 +19,16 @@ public class FileClass extends FileManager {
     }
 
     @Override
-    public void showEmails(int id, String email,Date date) {
-        File file = super.fileName;
-        try {
-            List<String> line = Files.readAllLines(Paths.get(file.toString()));
-            String[] parts = line.toArray(new String[0]);
-            for (int i = 0; i <= line.hashCode(); i++) {
-                id = Integer.parseInt(parts[0].trim());
-                email = parts[1].trim();
-                date = Date.valueOf(parts[2].trim());
+    public void showEmails() {
+        try (BufferedReader bufferReader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = bufferReader.readLine()) != null) {
+                System.out.println(line);
             }
-
+        } catch (FileNotFoundException e) {
+            System.err.println("File doesn't exist: " + e.getMessage());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Error reading file: " + e.getMessage());
         }
 
     }

@@ -41,11 +41,13 @@ public class Main  extends Application {
         //Buttons actions
         setYourEmail.setOnAction(e->{
             SetYourEmail setEmail = new SetYourEmail();
+            HBox writeYourEmail = new HBox();
             HBox hbox = new HBox(10);
-            VBox vbox = new VBox();
+            HBox hboxMiddleArea = new HBox();
             HBox hboxButtons = new HBox();
+            setEmail.title(writeYourEmail);
             setEmail.topPartOfWindow(hbox);
-            setEmail.middlePartOfWindow(vbox);
+            setEmail.middlePartOfWindow(hboxMiddleArea);
             setEmail.buttonPartOfWindow(hboxButtons);
 
             //Top part of window
@@ -66,7 +68,7 @@ public class Main  extends Application {
 //            HBox.setMargin(buttonSave,new Insets(0,50,50,0));
 //            HBox.setMargin(buttonCancel,new Insets(0,0,50,0));
 
-            StackPane pane = new StackPane(hbox,vbox,hboxButtons);
+            StackPane pane = new StackPane(hbox,writeYourEmail,hboxMiddleArea,hboxButtons);
             Scene scene = sceneManager.scenePanel(pane,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });
