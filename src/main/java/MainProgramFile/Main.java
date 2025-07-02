@@ -15,9 +15,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import org.apache.commons.validator.routines.EmailValidator;
-
-import java.io.File;
-
 import javafx.scene.control.Label;
 
 public class Main  extends Application {
@@ -45,30 +42,15 @@ public class Main  extends Application {
             HBox hbox = new HBox(10);
             HBox hboxMiddleArea = new HBox();
             HBox hboxButtons = new HBox();
+            VBox vboxSeparator = new VBox();
             setEmail.title(writeYourEmail);
             setEmail.topPartOfWindow(hbox);
             setEmail.middlePartOfWindow(hboxMiddleArea);
+            setEmail.separator(vboxSeparator);
             setEmail.buttonPartOfWindow(hboxButtons);
 
-            //Top part of window
-//            VBox vboxYourEmail = new VBox();
-//            Button buttonReturn = new Button("Return");
-//            Separator separator = new Separator();
-//            separator.setOrientation(Orientation.HORIZONTAL);
-//            VBox.setMargin(buttonReturn,new Insets(10,0,0,10));
-//            VBox.setMargin(separator,new Insets(10,0,10,0));
-//            vboxYourEmail.getChildren().addAll(buttonReturn,separator);
-
-
-
-//            HBox hboxYourEmail = new HBox(10);
-//            Button buttonCancel = new Button("Cancel");
-//            Button buttonSave = new Button("Save");
-//            hboxYourEmail.setAlignment(Pos.BOTTOM_RIGHT);
-//            HBox.setMargin(buttonSave,new Insets(0,50,50,0));
-//            HBox.setMargin(buttonCancel,new Insets(0,0,50,0));
-
-            StackPane pane = new StackPane(hbox,writeYourEmail,hboxMiddleArea,hboxButtons);
+            // Scene and StackPane settings
+            StackPane pane = new StackPane(hbox,writeYourEmail,hboxMiddleArea,vboxSeparator,hboxButtons);
             Scene scene = sceneManager.scenePanel(pane,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });

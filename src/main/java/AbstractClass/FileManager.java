@@ -14,5 +14,5 @@ public abstract class FileManager {
 
     public abstract void writeEmailInFile(String text);
 
-    public abstract void showEmails();
+    public abstract String showEmails();
 }
