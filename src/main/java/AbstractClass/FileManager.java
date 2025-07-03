@@ -2,8 +2,7 @@ package AbstractClass;
 
 
 import java.io.File;
-import java.io.IOException;
-import java.sql.Date;
+
 
 public abstract class FileManager {
     protected File fileName;

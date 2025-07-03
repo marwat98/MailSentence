@@ -17,14 +17,16 @@ public class SetYourEmail implements WindowViewInterface {
     File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
     FileClass file = new FileClass(myEmailFile);
     TextField email = new TextField();
+    TextField readText = new TextField();
+    RefreshWindow refresh = new RefreshWindow();
 
     // method which have settings position title on window
     public HBox title(HBox hbox){
-        Label writeYourEmail = new Label("Write your email");
-        writeYourEmail.setFont(Font.font(15));
+        Label writeYourEmail = new Label("Write your email or change");
+        writeYourEmail.setFont(Font.font(20));
 
-        hbox.setAlignment(Pos.TOP_LEFT);
-        HBox.setMargin(writeYourEmail,new Insets(20,0,0,85));
+        hbox.setAlignment(Pos.TOP_CENTER);
+        HBox.setMargin(writeYourEmail,new Insets(35,0,0,0));
         hbox.getChildren().addAll(writeYourEmail);
 
         return hbox;
@@ -43,8 +45,8 @@ public class SetYourEmail implements WindowViewInterface {
         email.setPrefSize(575,20);
 
         hbox.setAlignment(Pos.TOP_LEFT);
-        HBox.setMargin(label,new Insets(50,0,0,15));
-        HBox.setMargin(email,new Insets(50,0,0,25));
+        HBox.setMargin(label,new Insets(100,0,0,15));
+        HBox.setMargin(email,new Insets(100,0,0,20));
         hbox.getChildren().addAll(label,email);
 
         return hbox;
@@ -57,19 +59,21 @@ public class SetYourEmail implements WindowViewInterface {
      */
     @Override
     public HBox middlePartOfWindow(HBox hbox) {
-        Label contain = new Label("Contain\nFile");
+        Label contain = new Label("Your currently email");
         contain.setFont(Font.font(15));
         contain.setTextAlignment(TextAlignment.CENTER);
         contain.setAlignment(Pos.CENTER);
         contain.setWrapText(true);
 
-        TextField readText = new TextField();
-        readText.setPrefSize(575,200);
+        readText.setPrefSize(300,30);
+        readText.setEditable(false);
+        String showContent = file.showEmails();
+        readText.setText(showContent);
 
 
         hbox.setAlignment(Pos.TOP_CENTER);
-        HBox.setMargin(contain,new Insets(180,20,0,-20));
-        HBox.setMargin(readText,new Insets(100,0,0,0));
+        HBox.setMargin(contain,new Insets(155,20,0,0));
+        HBox.setMargin(readText,new Insets(150,0,0,0));
         hbox.getChildren().addAll(contain,readText);
 
         return hbox;
@@ -110,6 +114,12 @@ public class SetYourEmail implements WindowViewInterface {
         });
         save.setOnAction(e->{
             file.writeEmailInFile(email.getText());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succes");
+            alert.setHeaderText(null);
+            alert.setContentText("You save email " + email.toString());
+            alert.showAndWait();
+            refresh.refreshWindow(readText);
         });
 
         hbox.setAlignment(Pos.BOTTOM_RIGHT);

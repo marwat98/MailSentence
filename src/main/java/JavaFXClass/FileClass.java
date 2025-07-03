@@ -24,17 +24,13 @@ public class FileClass extends FileManager {
 
     @Override
     public String showEmails() {
-        try (BufferedReader bufferReader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = bufferReader.readLine()) != null) {
-                System.out.println(line);
-            }
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            return bufferedReader.readLine();
         } catch (FileNotFoundException e) {
             System.err.println("File doesn't exist: " + e.getMessage());
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
-
-        return showEmails();
+        return "Null data";
     }
 }
