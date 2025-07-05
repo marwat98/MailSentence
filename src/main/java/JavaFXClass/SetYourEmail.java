@@ -1,5 +1,6 @@
 package JavaFXClass;
 
+import FileClass.FileClass;
 import Interfaces.WindowViewInterface;
 import MainProgramFile.Main;
 import javafx.geometry.Insets;
@@ -43,6 +44,7 @@ public class SetYourEmail implements WindowViewInterface {
         label.setFont(Font.font(15));
 
         email.setPrefSize(575,20);
+        email.setDisable(false);
 
         hbox.setAlignment(Pos.TOP_LEFT);
         HBox.setMargin(label,new Insets(100,0,0,15));
@@ -113,13 +115,10 @@ public class SetYourEmail implements WindowViewInterface {
 
         });
         save.setOnAction(e->{
-            file.writeEmailInFile(email.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succes");
-            alert.setHeaderText(null);
-            alert.setContentText("You save email " + email.toString());
-            alert.showAndWait();
+            file.writeEmailToFile(email.getText());
             refresh.refreshWindow(readText);
+            email.clear();
+            email.requestFocus();
         });
 
         hbox.setAlignment(Pos.BOTTOM_RIGHT);
