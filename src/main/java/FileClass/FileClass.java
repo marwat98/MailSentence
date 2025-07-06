@@ -13,34 +13,22 @@ public class FileClass extends FileManager {
     }
 
     @Override
-    public void writeEmailToFile(String text) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    public boolean writeEmailToFile(String text) {
         EmailValidator emailValidator = EmailValidator.getInstance();
-        if(text.equals("") || text.isEmpty()){
-            alert.setTitle("Empty Field Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Field can't be empty");
-            alert.showAndWait();
-            return;
+        if(text == null || text.isBlank()){
+            return false;
         }
-        if(!emailValidator.isValid(text)){
-            alert.setTitle("Error email address");
-            alert.setHeaderText(null);
-            alert.setContentText("This text isn't email address");
-            alert.showAndWait();
-            return;
+        if (!emailValidator.isValid(text)){
+            return false;
         }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
             writer.write(text);
-            alert.setTitle("Succes");
-            alert.setHeaderText(null);
-            alert.setContentText("You save email: " + text);
-            alert.showAndWait();
-        } catch (FileNotFoundException e) {
-            System.err.println("File doesn't exist: " + e.getMessage());
         } catch(IOException e){
             System.out.println("Error: Save text in file isn't possible " + e.getMessage());
+            return false;
         }
+        return true;
     }
 
     @Override

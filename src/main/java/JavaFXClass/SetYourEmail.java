@@ -20,6 +20,7 @@ public class SetYourEmail implements WindowViewInterface {
     TextField email = new TextField();
     TextField readText = new TextField();
     RefreshWindow refresh = new RefreshWindow();
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     // method which have settings position title on window
     public HBox title(HBox hbox){
@@ -116,6 +117,22 @@ public class SetYourEmail implements WindowViewInterface {
         });
         save.setOnAction(e->{
             file.writeEmailToFile(email.getText());
+            if(file.writeEmailToFile(email.getText())){
+                alert.setTitle("Succes");
+                alert.setHeaderText(null);
+                alert.setContentText("You save email: " + email.toString());
+                alert.showAndWait();
+            } else if (email.getText().isEmpty() || email.getText().equals("")){
+                alert.setTitle("Empty Field Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Field can't be empty");
+                alert.showAndWait();
+            } else {
+                alert.setTitle("Error email address");
+                alert.setHeaderText(null);
+                alert.setContentText("This text isn't email address");
+                alert.showAndWait();
+            }
             refresh.refreshWindow(readText);
             email.clear();
             email.requestFocus();

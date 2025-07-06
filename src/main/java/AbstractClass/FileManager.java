@@ -11,7 +11,7 @@ public abstract class FileManager {
         this.fileName = fileName;
     }
 
-    public abstract void writeEmailToFile(String text);
+    public abstract boolean writeEmailToFile(String text);
 
     public abstract String showEmails();
 }
