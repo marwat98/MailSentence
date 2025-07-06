@@ -2,6 +2,7 @@ package MainProgramFile;
 
 import JavaFXClass.ButtonManager;
 import JavaFXClass.SceneManager;
+import JavaFXClass.SetSendEmail;
 import JavaFXClass.SetYourEmail;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -43,7 +44,7 @@ public class Main  extends Application {
             HBox hboxMiddleArea = new HBox();
             HBox hboxButtons = new HBox();
             VBox vboxSeparator = new VBox();
-            setEmail.title(writeYourEmail);
+            setEmail.title(writeYourEmail,"Write your email or change");
             setEmail.topPartOfWindow(hbox);
             setEmail.middlePartOfWindow(hboxMiddleArea);
             setEmail.separator(vboxSeparator);
@@ -54,6 +55,23 @@ public class Main  extends Application {
             Scene scene = sceneManager.scenePanel(pane,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });
+
+        setSendEmail.setOnAction(e->{
+            SetSendEmail setSendEmails = new SetSendEmail();
+            HBox titleHbox = new HBox();
+            HBox topPartOfWindowHBox = new HBox();
+            HBox buttonPartOfWindowHBox = new HBox();
+            VBox vboxSeparatorSendEmail = new VBox();
+            setSendEmails.title(titleHbox,"Set email to send");
+            setSendEmails.topPartOfWindow(topPartOfWindowHBox);
+            setSendEmails.separator(vboxSeparatorSendEmail);
+            setSendEmails.buttonPartOfWindow(buttonPartOfWindowHBox);
+
+            StackPane pane = new StackPane(titleHbox,topPartOfWindowHBox,vboxSeparatorSendEmail,buttonPartOfWindowHBox);
+            Scene scene = sceneManager.scenePanel(pane,700,400);
+            sceneManager.openPanel(scene,"EmailAI");
+        });
+
 
         //Vbox settings
         VBox vbox = new VBox(20);
@@ -70,43 +88,5 @@ public class Main  extends Application {
     }
     public static void main(String[] args) {
         launch(args);
-//        Scanner scanner = new Scanner(System.in);
-//        Sentence showSentence = new Sentence();
-//        EmailValidator email = EmailValidator.getInstance();
-//        File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
-//        FileClass file = new FileClass(myEmailFile);
-//        int choose;
-//
-//
-//        showSentence.printMenu();
-//        showSentence.show("Choose: ");
-//        choose = scanner.nextInt();
-//
-//        switch(choose){
-//            case 1 ->{
-//                showSentence.printChooseOne();
-//                showSentence.show("Choose: ");
-//                choose = scanner.nextInt();
-//
-//                if(choose == 1){
-//                    String writeEmail = scanner.next();
-//                    String checkWriteEmail = (email.isValid(writeEmail)) ? "Sucess!! Your email is right" : "You write wrong email try again";
-//                    System.out.println(checkWriteEmail);
-//                    file.writeEmailInFile(writeEmail);
-//                } else {
-//                    try {
-//                        file.showEmails();
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//            }
-//            case 2 ->{
-//
-//            }
-//        }
-//
-//        GmailSend gmail = new GmailSend("yourmail@gmail.com","sendmail@gmail.com","hostAdress","appPassword");
-
     }
 }

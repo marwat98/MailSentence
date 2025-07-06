@@ -21,7 +21,6 @@ public class FileClass extends FileManager {
         if (!emailValidator.isValid(text)){
             return false;
         }
-
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
             writer.write(text);
         } catch(IOException e){

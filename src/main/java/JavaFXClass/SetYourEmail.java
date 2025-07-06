@@ -23,8 +23,8 @@ public class SetYourEmail implements WindowViewInterface {
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     // method which have settings position title on window
-    public HBox title(HBox hbox){
-        Label writeYourEmail = new Label("Write your email or change");
+    public HBox title(HBox hbox,String labelText){
+        Label writeYourEmail = new Label(labelText);
         writeYourEmail.setFont(Font.font(20));
 
         hbox.setAlignment(Pos.TOP_CENTER);
