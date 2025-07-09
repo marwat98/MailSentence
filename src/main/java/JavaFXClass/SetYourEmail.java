@@ -15,12 +15,12 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class SetYourEmail implements WindowViewInterface {
-    File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
-    FileClass file = new FileClass(myEmailFile);
-    TextField email = new TextField();
-    TextField readText = new TextField();
-    RefreshWindow refresh = new RefreshWindow();
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    protected File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
+    protected FileClass file = new FileClass(myEmailFile);
+    protected TextField email = new TextField();
+    protected TextField readText = new TextField();
+    protected RefreshWindow refresh = new RefreshWindow();
+    protected Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     // method which have settings position title on window
     public HBox title(HBox hbox,String labelText){

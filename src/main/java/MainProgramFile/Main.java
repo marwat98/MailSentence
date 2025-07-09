@@ -40,18 +40,18 @@ public class Main  extends Application {
         setYourEmail.setOnAction(e->{
             SetYourEmail setEmail = new SetYourEmail();
             HBox writeYourEmail = new HBox();
-            HBox hbox = new HBox(10);
-            HBox hboxMiddleArea = new HBox();
-            HBox hboxButtons = new HBox();
+            HBox topOfWindowYourEmailHBox = new HBox(10);
+            HBox middleOfWindowYourEmailHBox = new HBox();
+            HBox buttonOfWindowYourEmailHBox = new HBox();
             VBox vboxSeparator = new VBox();
             setEmail.title(writeYourEmail,"Write your email or change");
-            setEmail.topPartOfWindow(hbox);
-            setEmail.middlePartOfWindow(hboxMiddleArea);
+            setEmail.topPartOfWindow(topOfWindowYourEmailHBox);
+            setEmail.middlePartOfWindow(middleOfWindowYourEmailHBox);
             setEmail.separator(vboxSeparator);
-            setEmail.buttonPartOfWindow(hboxButtons);
+            setEmail.buttonPartOfWindow(buttonOfWindowYourEmailHBox);
 
             // Scene and StackPane settings
-            StackPane pane = new StackPane(hbox,writeYourEmail,hboxMiddleArea,vboxSeparator,hboxButtons);
+            StackPane pane = new StackPane(writeYourEmail,topOfWindowYourEmailHBox,middleOfWindowYourEmailHBox,vboxSeparator,buttonOfWindowYourEmailHBox);
             Scene scene = sceneManager.scenePanel(pane,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });
@@ -59,15 +59,15 @@ public class Main  extends Application {
         setSendEmail.setOnAction(e->{
             SetSendEmail setSendEmails = new SetSendEmail();
             HBox titleHbox = new HBox();
-            HBox topPartOfWindowHBox = new HBox();
-            HBox buttonPartOfWindowHBox = new HBox();
-            VBox vboxSeparatorSendEmail = new VBox();
+            HBox topOfWindowSendEmailHBox = new HBox();
+            HBox middleOfWindowSendEmailHBox = new HBox();
+            VBox separatorSendEmailVBox = new VBox();
+            HBox buttonOfWindowSendEmailHBox= new HBox();
             setSendEmails.title(titleHbox,"Set email to send");
-            setSendEmails.topPartOfWindow(topPartOfWindowHBox);
-            setSendEmails.separator(vboxSeparatorSendEmail);
-            setSendEmails.buttonPartOfWindow(buttonPartOfWindowHBox);
+            setSendEmails.topPartOfWindow(topOfWindowSendEmailHBox);
+            setSendEmails.buttonPartOfWindow(buttonOfWindowSendEmailHBox);
 
-            StackPane pane = new StackPane(titleHbox,topPartOfWindowHBox,vboxSeparatorSendEmail,buttonPartOfWindowHBox);
+            StackPane pane = new StackPane(titleHbox,topOfWindowSendEmailHBox);
             Scene scene = sceneManager.scenePanel(pane,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });
