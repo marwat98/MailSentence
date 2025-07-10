@@ -1,7 +1,7 @@
 package AbstractClass;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public abstract class SceneSettingsClass {
@@ -11,5 +11,5 @@ public abstract class SceneSettingsClass {
         this.stage = stage;
     }
     public abstract void openPanel(Scene scene , String text);
-    public abstract Scene scenePanel(StackPane pane,int width, int height);
+    public abstract Scene scenePanel(VBox layout, int width, int height);
 }

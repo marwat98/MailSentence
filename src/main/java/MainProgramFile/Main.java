@@ -10,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -50,9 +49,10 @@ public class Main  extends Application {
             setEmail.separator(vboxSeparator);
             setEmail.buttonPartOfWindow(buttonOfWindowYourEmailHBox);
 
-            // Scene and StackPane settings
-            StackPane pane = new StackPane(writeYourEmail,topOfWindowYourEmailHBox,middleOfWindowYourEmailHBox,vboxSeparator,buttonOfWindowYourEmailHBox);
-            Scene scene = sceneManager.scenePanel(pane,700,400);
+            // Scene and VBox settings
+            VBox layout = new VBox();
+            layout.getChildren().addAll(writeYourEmail,topOfWindowYourEmailHBox,middleOfWindowYourEmailHBox,vboxSeparator,buttonOfWindowYourEmailHBox);
+            Scene scene = sceneManager.scenePanel(layout,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });
 
@@ -65,13 +65,15 @@ public class Main  extends Application {
             HBox buttonOfWindowSendEmailHBox= new HBox();
             setSendEmails.title(titleHbox,"Set email to send");
             setSendEmails.topPartOfWindow(topOfWindowSendEmailHBox);
+            setSendEmails.middlePartOfWindow(middleOfWindowSendEmailHBox);
+            setSendEmails.separator(separatorSendEmailVBox);
             setSendEmails.buttonPartOfWindow(buttonOfWindowSendEmailHBox);
 
-            StackPane pane = new StackPane(titleHbox,topOfWindowSendEmailHBox);
-            Scene scene = sceneManager.scenePanel(pane,700,400);
+            VBox layout = new VBox();
+            layout.getChildren().addAll(titleHbox,topOfWindowSendEmailHBox,middleOfWindowSendEmailHBox,separatorSendEmailVBox,buttonOfWindowSendEmailHBox);
+            Scene scene = sceneManager.scenePanel(layout,700,400);
             sceneManager.openPanel(scene,"EmailAI");
         });
-
 
         //Vbox settings
         VBox vbox = new VBox(20);
@@ -80,11 +82,10 @@ public class Main  extends Application {
         vbox.getChildren().addAll(label,setYourEmail,setSendEmail,settings,exit);
 
         //Menu scene
-        StackPane paneMenu = new StackPane(vbox);
-        Scene sceneMenu = sceneManager.scenePanel(paneMenu,700,400);
-        sceneManager.openPanel(sceneMenu,"EmailAI");
-
-
+        VBox layout = new VBox();
+        layout.getChildren().addAll(vbox);
+        Scene scene = sceneManager.scenePanel(layout,700,400);
+        sceneManager.openPanel(scene,"EmailAI");
     }
     public static void main(String[] args) {
         launch(args);

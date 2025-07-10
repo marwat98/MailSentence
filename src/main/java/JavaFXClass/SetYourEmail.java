@@ -48,8 +48,8 @@ public class SetYourEmail implements WindowViewInterface {
         email.setDisable(false);
 
         hbox.setAlignment(Pos.TOP_LEFT);
-        HBox.setMargin(label,new Insets(100,0,0,15));
-        HBox.setMargin(email,new Insets(100,0,0,20));
+        HBox.setMargin(label,new Insets(21,0,0,15));
+        HBox.setMargin(email,new Insets(20,0,0,10));
         hbox.getChildren().addAll(label,email);
 
         return hbox;
@@ -73,10 +73,9 @@ public class SetYourEmail implements WindowViewInterface {
         String showContent = file.showEmails();
         readText.setText(showContent);
 
-
         hbox.setAlignment(Pos.TOP_CENTER);
-        HBox.setMargin(contain,new Insets(155,20,0,0));
-        HBox.setMargin(readText,new Insets(150,0,0,0));
+        HBox.setMargin(contain,new Insets(22,20,0,0));
+        HBox.setMargin(readText,new Insets(20,0,0,0));
         hbox.getChildren().addAll(contain,readText);
 
         return hbox;
@@ -87,7 +86,7 @@ public class SetYourEmail implements WindowViewInterface {
         Separator separator = new Separator();
         separator.setPrefWidth(200);
 
-        VBox.setMargin(separator, new Insets(350, 0, 0, 0));
+        VBox.setMargin(separator, new Insets(190, 0, 0, 0));
         vboxSeparator.getChildren().addAll(separator);
 
         return vboxSeparator;
@@ -139,8 +138,8 @@ public class SetYourEmail implements WindowViewInterface {
         });
 
         hbox.setAlignment(Pos.BOTTOM_RIGHT);
-        HBox.setMargin(cancel,new Insets(0,0,12,35));
-        HBox.setMargin(save,new Insets(0,10,12,10));
+        HBox.setMargin(cancel,new Insets(10,0,12,35));
+        HBox.setMargin(save,new Insets(10,10,12,10));
         hbox.getChildren().addAll(cancel,save);
 
         return hbox;
