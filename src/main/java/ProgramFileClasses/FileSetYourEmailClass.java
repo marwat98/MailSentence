@@ -1,20 +1,20 @@
-package FileClass;
+package ProgramFileClasses;
 
-import AbstractClass.FileManager;
-import javafx.scene.control.Alert;
+import AbstractClasses.FileManager;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.*;
 
 
-public class FileClass extends FileManager {
-    public FileClass(File fileName) {
+public class FileSetYourEmailClass extends FileManager {
+    protected EmailValidator emailValidator = EmailValidator.getInstance();
+
+    public FileSetYourEmailClass(File fileName) {
         super(fileName);
     }
 
     @Override
     public boolean writeEmailToFile(String text) {
-        EmailValidator emailValidator = EmailValidator.getInstance();
         if(text == null || text.isBlank()){
             return false;
         }

@@ -1,8 +1,7 @@
-package JavaFXClass;
+package JavaFXClasses;
 
-import AbstractClass.SceneSettingsClass;
+import AbstractClasses.SceneSettingsClass;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 

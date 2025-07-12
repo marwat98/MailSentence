@@ -1,9 +1,9 @@
-package MainProgramFile;
+package MainProgram;
 
-import JavaFXClass.ButtonManager;
-import JavaFXClass.SceneManager;
-import JavaFXClass.SetSendEmail;
-import JavaFXClass.SetYourEmail;
+import JavaFXClasses.ButtonManager;
+import JavaFXClasses.SceneManager;
+import JavaFXClasses.SetSendEmail;
+import JavaFXClasses.SetYourEmail;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

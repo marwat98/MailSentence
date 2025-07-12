@@ -1,4 +1,4 @@
-package JavaFXClass;
+package JavaFXClasses;
 
 import Interfaces.ButtonManagerInterface;
 import javafx.scene.control.Button;

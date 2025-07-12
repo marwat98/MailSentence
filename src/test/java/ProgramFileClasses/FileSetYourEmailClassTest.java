@@ -1,4 +1,4 @@
-package FileClass;
+package ProgramFileClasses;
 
 import org.junit.jupiter.api.Test;
 import java.io.File;
@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-class FileClassTest {
-    FileClass testFile = new FileClass(new File("test-example-file.txt"));
+class FileSetYourEmailClassTest {
+    FileSetYourEmailClass testFile = new FileSetYourEmailClass(new File("test-example-file.txt"));
 
     @Test
     void shouldNotSaveInvalidEmailToFile() {

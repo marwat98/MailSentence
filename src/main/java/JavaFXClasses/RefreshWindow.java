@@ -1,4 +1,4 @@
-package JavaFXClass;
+package JavaFXClasses;
 
 import Interfaces.RefreshWindowInterface;
 

@@ -1,4 +1,4 @@
-package AbstractClass;
+package AbstractClasses;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;

@@ -1,4 +1,4 @@
-package AbstractClass;
+package AbstractClasses;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

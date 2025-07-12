@@ -1,8 +1,8 @@
-package JavaFXClass;
+package JavaFXClasses;
 
-import FileClass.FileClass;
+import ProgramFileClasses.FileSetYourEmailClass;
 import Interfaces.WindowViewInterface;
-import MainProgramFile.Main;
+import MainProgram.Main;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -16,11 +16,15 @@ import java.io.File;
 
 public class SetYourEmail implements WindowViewInterface {
     protected File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
-    protected FileClass file = new FileClass(myEmailFile);
+    protected FileSetYourEmailClass file = new FileSetYourEmailClass(myEmailFile);
     protected TextField email = new TextField();
     protected TextField readText = new TextField();
     protected RefreshWindow refresh = new RefreshWindow();
+    protected Separator separator = new Separator();
+    protected ButtonManager button = new ButtonManager();
     protected Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    Button save;
+    Button cancel;
 
     // method which have settings position title on window
     public HBox title(HBox hbox,String labelText){
@@ -83,7 +87,6 @@ public class SetYourEmail implements WindowViewInterface {
 
     // method which contain settings for position separator on window
     public VBox separator(VBox vboxSeparator){
-        Separator separator = new Separator();
         separator.setPrefWidth(200);
 
         VBox.setMargin(separator, new Insets(190, 0, 0, 0));
@@ -99,20 +102,17 @@ public class SetYourEmail implements WindowViewInterface {
      */
     @Override
     public HBox buttonPartOfWindow(HBox hbox) {
-        ButtonManager button = new ButtonManager();
-        Button cancel = button.setButtonSize("Cancel",100, 20);
-        Button save = button.setButtonSize("Save",100, 20);
+        cancel = button.setButtonSize("Cancel",100, 20);
+        save = button.setButtonSize("Save",100, 20);
 
         cancel.setOnAction( e->{
             Stage currentlyWindow = (Stage) cancel.getScene().getWindow();
             currentlyWindow.close();
-
             try {
                 new Main().start(new Stage());
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-
         });
         save.setOnAction(e->{
             file.writeEmailToFile(email.getText());
