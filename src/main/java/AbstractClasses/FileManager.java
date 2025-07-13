@@ -2,6 +2,7 @@ package AbstractClasses;
 
 
 import java.io.File;
+import java.io.IOException;
 
 
 public abstract class FileManager {
@@ -12,6 +13,8 @@ public abstract class FileManager {
     }
 
     public abstract boolean writeEmailToFile(String text);
+
+    public abstract void saveToFile(String text) throws IOException;
 
     public abstract String showEmails();
 }

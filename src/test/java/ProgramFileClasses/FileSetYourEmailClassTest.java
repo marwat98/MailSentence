@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class FileSetYourEmailClassTest {
-    FileSetYourEmailClass testFile = new FileSetYourEmailClass(new File("test-example-file.txt"));
+    BaseFileManager testFile = new BaseFileManager(new File("test-example-file.txt"));
 
     @Test
     void shouldNotSaveInvalidEmailToFile() {

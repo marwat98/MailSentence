@@ -1,6 +1,6 @@
 package JavaFXClasses;
 
-import ProgramFileClasses.FileSetYourEmailClass;
+import ProgramFileClasses.BaseFileManager;
 import Interfaces.WindowViewInterface;
 import MainProgram.Main;
 import javafx.geometry.Insets;
@@ -16,7 +16,7 @@ import java.io.File;
 
 public class SetYourEmail implements WindowViewInterface {
     protected File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
-    protected FileSetYourEmailClass file = new FileSetYourEmailClass(myEmailFile);
+    protected BaseFileManager file = new BaseFileManager(myEmailFile);
     protected TextField email = new TextField();
     protected TextField readText = new TextField();
     protected RefreshWindow refresh = new RefreshWindow();

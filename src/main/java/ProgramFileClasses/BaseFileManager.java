@@ -6,10 +6,10 @@ import org.apache.commons.validator.routines.EmailValidator;
 import java.io.*;
 
 
-public class FileSetYourEmailClass extends FileManager {
+public class BaseFileManager extends FileManager {
     protected EmailValidator emailValidator = EmailValidator.getInstance();
 
-    public FileSetYourEmailClass(File fileName) {
+    public BaseFileManager(File fileName) {
         super(fileName);
     }
 
@@ -21,13 +21,20 @@ public class FileSetYourEmailClass extends FileManager {
         if (!emailValidator.isValid(text)){
             return false;
         }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
-            writer.write(text);
+        try{
+            saveToFile(text);
         } catch(IOException e){
             System.out.println("Error: Save text in file isn't possible " + e.getMessage());
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void saveToFile(String text) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+            writer.write(text);
+        }
     }
 
     @Override

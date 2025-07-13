@@ -7,9 +7,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
+
 
 public class SetSendEmail extends SetYourEmail {
-    ButtonManager button = new ButtonManager();
+    protected ButtonManager button = new ButtonManager();
+    protected File sendEmailFile = new File("src/main/java/ProgramFiles/sendEmailFile.txt");
 
     @Override
     public HBox title(HBox hbox, String labelText) {
