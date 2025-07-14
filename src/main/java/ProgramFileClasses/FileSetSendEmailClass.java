@@ -1,11 +1,16 @@
 package ProgramFileClasses;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import AbstractClasses.FileManager;
+import org.apache.commons.validator.routines.EmailValidator;
 
-public class FileSetSendEmailClass extends BaseFileManager {
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class FileSetSendEmailClass extends FileManager {
+    protected EmailValidator emailValidator = EmailValidator.getInstance();
+
     public FileSetSendEmailClass(File fileName) {
         super(fileName);
     }
@@ -19,7 +24,8 @@ public class FileSetSendEmailClass extends BaseFileManager {
             return false;
         }
         try{
-           saveToFile(text);
+            List<String> data = Arrays.asList(text);
+            saveToFile(null,data);
         } catch(IOException e){
             System.out.println("Error: Save text in file isn't possible " + e.getMessage());
             return false;
@@ -28,18 +34,39 @@ public class FileSetSendEmailClass extends BaseFileManager {
     }
 
     @Override
-    public void saveToFile(String text) throws IOException {
-        String allData[] = new String[]{text};
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (String data : allData) {
-                writer.write(data);
-                writer.newLine();
+    public void saveToFile(String text, List<String> emails) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            for (int i = 0; i < emails.size(); i++) {
+                writer.write(emails.get(i));
+
+                // dodaj przecinek tylko jeśli to nie ostatni element
+                if (i < emails.size() - 1) {
+                    writer.write(", ");
+                }
+
             }
         }
     }
 
+
+
     @Override
     public String showEmails() {
-        return super.showEmails();
+        return null;
+    }
+    public List<String> showSendEmails(){
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("File doesn't exist: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+        return lines;
     }
 }
+

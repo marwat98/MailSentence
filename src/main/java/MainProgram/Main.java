@@ -21,7 +21,6 @@ public class Main  extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         SceneManager sceneManager = new SceneManager(stage);
-        EmailValidator email = EmailValidator.getInstance();
 
         //Menu Label view
         Label label = new Label("Menu");

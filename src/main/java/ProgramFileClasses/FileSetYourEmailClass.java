@@ -4,12 +4,13 @@ import AbstractClasses.FileManager;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.*;
+import java.util.List;
 
 
-public class BaseFileManager extends FileManager {
+public class FileSetYourEmailClass extends FileManager {
     protected EmailValidator emailValidator = EmailValidator.getInstance();
 
-    public BaseFileManager(File fileName) {
+    public FileSetYourEmailClass(File fileName) {
         super(fileName);
     }
 
@@ -22,7 +23,7 @@ public class BaseFileManager extends FileManager {
             return false;
         }
         try{
-            saveToFile(text);
+            saveToFile(text,null);
         } catch(IOException e){
             System.out.println("Error: Save text in file isn't possible " + e.getMessage());
             return false;
@@ -31,7 +32,7 @@ public class BaseFileManager extends FileManager {
     }
 
     @Override
-    public void saveToFile(String text) throws IOException {
+    public void saveToFile(String text , List<String> emails) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
             writer.write(text);
         }
@@ -40,7 +41,7 @@ public class BaseFileManager extends FileManager {
     @Override
     public String showEmails() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-            return bufferedReader.readLine();
+           return bufferedReader.readLine();
         } catch (FileNotFoundException e) {
             System.err.println("File doesn't exist: " + e.getMessage());
         } catch (IOException e) {
