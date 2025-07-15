@@ -1,4 +1,4 @@
-package MainProgram;
+package MenuProgram;
 
 import JavaFXClasses.ButtonManager;
 import JavaFXClasses.SceneManager;
@@ -14,10 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import org.apache.commons.validator.routines.EmailValidator;
 import javafx.scene.control.Label;
 
-public class Main  extends Application {
+public class Menu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         SceneManager sceneManager = new SceneManager(stage);

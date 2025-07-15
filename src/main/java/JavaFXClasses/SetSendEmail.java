@@ -1,7 +1,6 @@
 package JavaFXClasses;
 
 import ProgramFileClasses.FileSetSendEmailClass;
-import ProgramFileClasses.FileSetYourEmailClass;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,13 +9,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
-import java.util.List;
+import java.util.Set;
 
 
 public class SetSendEmail extends SetYourEmail {
     protected ButtonManager button = new ButtonManager();
     protected File sendEmailFile = new File("src/main/java/ProgramFiles/sendEmailFile.txt");
     protected FileSetSendEmailClass fileSetSendEmailClass = new FileSetSendEmailClass(sendEmailFile);
+    protected TextArea showEmails = new TextArea();
 
     @Override
     public HBox title(HBox hbox, String labelText) {
@@ -30,22 +30,12 @@ public class SetSendEmail extends SetYourEmail {
 
         Button addEmail = button.setButtonSize("Add Email",100, 20);
         addEmail.setOnAction(e->{
-            fileSetSendEmailClass.writeEmailToFile(email.getText());
             if(fileSetSendEmailClass.writeEmailToFile(email.getText())){
-                alert.setTitle("Succes");
-                alert.setHeaderText(null);
-                alert.setContentText("You save email: " + email.toString());
-                alert.showAndWait();
+                sucess(alert);
             } else if (email.getText().isEmpty() || email.getText().equals("")){
-                alert.setTitle("Empty Field Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Field can't be empty");
-                alert.showAndWait();
+                emptyField(alert);
             } else {
-                alert.setTitle("Error email address");
-                alert.setHeaderText(null);
-                alert.setContentText("This text isn't email address");
-                alert.showAndWait();
+               errorField(alert);
             }
         });
 
@@ -57,10 +47,9 @@ public class SetSendEmail extends SetYourEmail {
 
     @Override
     public HBox middlePartOfWindow(HBox hbox) {
-        TextArea showEmails = new TextArea();
         showEmails.setPrefSize(670,150);
 
-       List<String> dates = fileSetSendEmailClass.showSendEmails();
+       Set<String> dates = fileSetSendEmailClass.showEmails();
         for (String data : dates){
             showEmails.setText(data);
         }
@@ -80,6 +69,13 @@ public class SetSendEmail extends SetYourEmail {
 
     @Override
     public HBox buttonPartOfWindow(HBox hbox) {
+        save.setOnAction(e->{
+            if(fileSetSendEmailClass.writeEmailToFile(showEmails.getText())){
+                edit(alert);
+            } else {
+                errorField(alert);
+            }
+        });
         HBox mainButtonBox = super.buttonPartOfWindow(hbox);
         HBox.setMargin(cancel,new Insets(10,10,12,0));
         HBox.setMargin(save,new Insets(10,10,12,10));

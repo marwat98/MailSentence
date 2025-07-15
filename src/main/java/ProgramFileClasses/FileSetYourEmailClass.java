@@ -4,7 +4,9 @@ import AbstractClasses.FileManager;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.*;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class FileSetYourEmailClass extends FileManager {
@@ -23,7 +25,7 @@ public class FileSetYourEmailClass extends FileManager {
             return false;
         }
         try{
-            saveToFile(text,null);
+            saveToFile(text);
         } catch(IOException e){
             System.out.println("Error: Save text in file isn't possible " + e.getMessage());
             return false;
@@ -32,21 +34,25 @@ public class FileSetYourEmailClass extends FileManager {
     }
 
     @Override
-    public void saveToFile(String text , List<String> emails) throws IOException {
+    public void saveToFile(String text) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
             writer.write(text);
         }
     }
 
     @Override
-    public String showEmails() {
+    public Set<String> showEmails() {
+        Set<String> lines = new LinkedHashSet<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-           return bufferedReader.readLine();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                lines.add(line);
+            }
         } catch (FileNotFoundException e) {
             System.err.println("File doesn't exist: " + e.getMessage());
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
-        return "Null data";
+        return lines;
     }
 }

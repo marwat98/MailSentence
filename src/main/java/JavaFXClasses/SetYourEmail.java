@@ -1,8 +1,9 @@
 package JavaFXClasses;
 
+import Interfaces.AlertInterface;
 import ProgramFileClasses.FileSetYourEmailClass;
 import Interfaces.WindowViewInterface;
-import MainProgram.Main;
+import MenuProgram.Menu;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -11,10 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
 import java.io.File;
+import java.util.Set;
 
-public class SetYourEmail implements WindowViewInterface {
+public class SetYourEmail implements WindowViewInterface , AlertInterface {
     protected File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
     protected FileSetYourEmailClass file = new FileSetYourEmailClass(myEmailFile);
     protected TextField email = new TextField();
@@ -74,8 +75,11 @@ public class SetYourEmail implements WindowViewInterface {
 
         readText.setPrefSize(300,30);
         readText.setEditable(false);
-        String showContent = file.showEmails();
-        readText.setText(showContent);
+
+        Set<String> showContentMyEmail = file.showEmails();
+        for (String data : showContentMyEmail){
+            readText.setText(data);
+        }
 
         hbox.setAlignment(Pos.TOP_CENTER);
         HBox.setMargin(contain,new Insets(22,20,0,0));
@@ -109,28 +113,19 @@ public class SetYourEmail implements WindowViewInterface {
             Stage currentlyWindow = (Stage) cancel.getScene().getWindow();
             currentlyWindow.close();
             try {
-                new Main().start(new Stage());
+                new Menu().start(new Stage());
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         });
+
         save.setOnAction(e->{
-            file.writeEmailToFile(email.getText());
             if(file.writeEmailToFile(email.getText())){
-                alert.setTitle("Succes");
-                alert.setHeaderText(null);
-                alert.setContentText("You save email: " + email.toString());
-                alert.showAndWait();
+                sucess(alert);
             } else if (email.getText().isEmpty() || email.getText().equals("")){
-                alert.setTitle("Empty Field Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Field can't be empty");
-                alert.showAndWait();
+                emptyField(alert);
             } else {
-                alert.setTitle("Error email address");
-                alert.setHeaderText(null);
-                alert.setContentText("This text isn't email address");
-                alert.showAndWait();
+                errorField(alert);
             }
             refresh.refreshWindow(readText);
             email.clear();
