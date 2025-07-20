@@ -1,6 +1,7 @@
 package JavaFXClasses;
 
 import Interfaces.AlertInterface;
+import OpenAI.OpenAIConfigurator;
 import ProgramFileClasses.FileSetSendEmailClass;
 import ProgramFileClasses.FileSetYourEmailClass;
 import Interfaces.WindowViewInterface;
@@ -67,7 +68,9 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
         //Button to generate title and
         Button generateButton = button.setButtonSize("Generate",200,20);
         generateButton.setOnAction(e->{
-
+            OpenAIConfigurator openAI = new OpenAIConfigurator();
+            String greetingsTitle = openAI.generate("Generate title for email with greetings only once");
+            title.setText(greetingsTitle);
         });
 
 
