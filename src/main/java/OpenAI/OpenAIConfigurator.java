@@ -27,6 +27,7 @@ public class OpenAIConfigurator implements OpenAIInterface {
 
         return response;
 
+
     }
 
 }
