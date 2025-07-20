@@ -26,6 +26,7 @@ public class OpenAIConfigurator implements OpenAIInterface {
         String response = chatCompletion.choices().getFirst().message().content().orElse("Something is wrong try again");
 
         return response;
+
     }
 
 
