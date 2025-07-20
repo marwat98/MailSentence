@@ -6,6 +6,7 @@ import ProgramFileClasses.FileSetSendEmailClass;
 import ProgramFileClasses.FileSetYourEmailClass;
 import Interfaces.WindowViewInterface;
 import MenuProgram.Menu;
+import com.openai.models.responses.Response;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -14,12 +15,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.Set;
 
 public class SetEmail implements WindowViewInterface , AlertInterface {
-    protected File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
-    protected File toSendEmail = new File("src/main/java/ProgramFiles/sendEmailFile.txt");
-    FileSetYourEmailClass fileSetYourEmailClass = new FileSetSendEmailClass(myEmailFile);
-    FileSetSendEmailClass fileSetSendEmailClass = new FileSetSendEmailClass(toSendEmail);
+    private final String fromPath = "src/main/java/ProgramFiles/myEmailFile.txt";
+    private final String toPath = "src/main/java/ProgramFiles/sendEmailFile.txt";
+    private final String titlePath = "src/main/java/ProgramFiles/emailTitleFile.txt";
+    private final File myEmailFile = new File(fromPath);
+    private final File sendEmailFile = new File(toPath);
+    private final File titleFile = new File(titlePath);
+    FileSetYourEmailClass fileSetYourEmailClass = new FileSetYourEmailClass(myEmailFile);
+    FileSetYourEmailClass titleAI = new FileSetYourEmailClass(titleFile);
+    FileSetSendEmailClass fileSetSendEmailClass = new FileSetSendEmailClass(sendEmailFile);
     TextField fromSetEmail = new TextField();
     TextField toSetEmail = new TextField();
     RefreshWindow refresh = new RefreshWindow();
@@ -39,7 +46,11 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
         return hbox;
     }
 
-
+    /**
+     * method which conatin inputs for prepare to send message email
+     * @param vbox
+     * @return vbox of settings position inputs on window
+     */
     @Override
     public VBox inputPartOfWindow(VBox vbox ) {
 
@@ -48,10 +59,22 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
         fromEmailLabel.setFont(Font.font(15));
         fromSetEmail.setPrefSize(530,20);
 
+        //Loop which show email in input fromSetEmail
+        Set<String> myEmailData = fileSetYourEmailClass.showEmails();
+        for (String data : myEmailData){
+            fromSetEmail.setText(data);
+        }
+
         // Label and TextField for To email input
         Label toEmailLabel = new Label("To");
         toEmailLabel.setFont(Font.font(15));
         toSetEmail.setPrefSize(530,20);
+
+        //Loop which show emails in input toSetEmail
+        Set<String> toSendEmailData = fileSetSendEmailClass.showEmails();
+        for (String data : toSendEmailData){
+            toSetEmail.setText(data);
+        }
 
         //Label and TextField for title input
         Label titleLabel = new Label("Title");
@@ -65,39 +88,53 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
         TextArea description = new TextArea();
         description.setPrefSize(530,130);
 
-        //Button to generate title and
+        //Button to generate title and descirption of using OpenAI
         Button generateButton = button.setButtonSize("Generate",200,20);
         generateButton.setOnAction(e->{
-            OpenAIConfigurator openAI = new OpenAIConfigurator();
-            String greetingsTitle = openAI.generate("Generate title for email with greetings only once");
-            title.setText(greetingsTitle);
+            OpenAIConfigurator openAIConfigurator = new OpenAIConfigurator();
+            String generateTitle  = openAIConfigurator.generate("Generate only one email title with greetings without description");
+            title.setText(generateTitle);
+            String input = title.getText();
+            // I have to creating a method to write get text of TextField to file
+
+            refresh.refreshWindow(title,titlePath);
+
+            Set<String> showTitleAI = titleAI.showEmails();
+            for (String data : showTitleAI){
+                title.setText(data);
+            }
+
         });
 
-
+        // HBox for field "From" with settings inputs and label on window
         HBox fromRow = new HBox();
         fromRow.setAlignment(Pos.TOP_LEFT);
         fromRow.getChildren().addAll(fromEmailLabel,fromSetEmail);
         HBox.setMargin(fromEmailLabel,new Insets(15,40,0,15));
         HBox.setMargin(fromSetEmail,new Insets(15,0,0,10));
 
+        // HBox for field "To" with settings inputs and label on window
         HBox toRow = new HBox();
         toRow.setAlignment(Pos.TOP_LEFT);
         toRow.getChildren().addAll(toEmailLabel,toSetEmail);
         HBox.setMargin(toEmailLabel,new Insets(15,57,0,15));
         HBox.setMargin(toSetEmail,new Insets(15,0,0,10));
 
+        // HBox for field "Title" with settings inputs and label on window
         HBox titleRow = new HBox();
         titleRow.setAlignment(Pos.TOP_LEFT);
         titleRow.getChildren().addAll(titleLabel,title);
         HBox.setMargin(titleLabel,new Insets(15,45,0,15));
         HBox.setMargin(title,new Insets(15,0,0,10));
 
+        // HBox for field "Description" with settings inputs and label on window
         HBox descriptionRow = new HBox();
         descriptionRow.setAlignment(Pos.TOP_LEFT);
         descriptionRow.getChildren().addAll(descriptionLabel,description);
         HBox.setMargin(descriptionLabel,new Insets(45,-2,0,15));
         HBox.setMargin(description,new Insets(15,0,0,10));
 
+        // HBox for button generate message and title of using OpenAI
         HBox generateRow = new HBox();
         generateRow.setAlignment(Pos.BOTTOM_CENTER);
         generateRow.getChildren().add(generateButton);
@@ -109,7 +146,11 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
     }
 
 
-    // method which contain settings for position separator on window
+    /**
+     * method which set separator position on window
+     * @param vboxSeparator
+     * @return vbox with settings separator position
+     */
     @Override
     public VBox separator(VBox vboxSeparator){
         Separator separator = new Separator();
@@ -121,7 +162,11 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
         return vboxSeparator;
     }
 
-
+    /**
+     * method with button cancel and save on window
+     * @param hbox
+     * @return hbox with position buttons cancel and save on window
+     */
     @Override
     public HBox buttonPartOfWindow(HBox hbox) {
         Button cancel = button.setButtonSize("Cancel",100, 20);
@@ -138,21 +183,24 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
         });
 
         save.setOnAction(e->{
-            if(fileSetYourEmailClass.writeEmailToFile(fromSetEmail.getText())){
-                sucess(alert);
-            } else if (fromSetEmail.getText().isEmpty() || fromSetEmail.getText().equals("")){
+            String fromEmail = fromSetEmail.getText().trim();
+            String toEmail = toSetEmail.getText().trim();
+
+            if(fromEmail.isEmpty() && toEmail.isEmpty()){
                 emptyField(alert);
-            } else {
-               errorField(alert);
+                return;
             }
-            if(fileSetSendEmailClass.writeEmailToFile(toSetEmail.getText())){
+            boolean fromSavedToFile = fileSetYourEmailClass.writeEmailToFile(fromSetEmail.getText());
+            boolean toSavedToFile = fileSetSendEmailClass.writeEmailToFile(toSetEmail.getText());
+
+            if(fromSavedToFile && toSavedToFile){
                 sucess(alert);
-            } else if (toSetEmail.getText().isEmpty() || toSetEmail.getText().equals("")){
-                emptyField(alert);
+                refresh.refreshWindow(fromSetEmail,fromPath);
+                refresh.refreshWindow(toSetEmail,toPath);
             } else {
                 errorField(alert);
             }
-          });
+        });
 
         hbox.setAlignment(Pos.BOTTOM_RIGHT);
         HBox.setMargin(cancel,new Insets(10,0,12,35));

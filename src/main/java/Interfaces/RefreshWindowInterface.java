@@ -8,8 +8,8 @@ import java.util.Set;
 
 public interface RefreshWindowInterface {
 
-    default TextField refreshWindow(TextField textField){
-        File myEmailFile = new File("src/main/java/ProgramFiles/myEmailFile.txt");
+    default TextField refreshWindow(TextField textField,String path){
+        File myEmailFile = new File(path);
         FileSetYourEmailClass file = new FileSetYourEmailClass(myEmailFile);
         Set<String> showContent = file.showEmails();
         for (String data: showContent){
