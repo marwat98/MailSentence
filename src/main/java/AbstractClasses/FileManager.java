@@ -13,7 +13,7 @@ public abstract class FileManager {
         this.fileName = fileName;
     }
 
-    public abstract boolean writeEmailToFile(String text);
+    public abstract boolean writeToFile(String text);
 
     public abstract void saveToFile(String text) throws IOException;
 

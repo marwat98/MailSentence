@@ -8,26 +8,30 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 
-public class FileSetYourEmailClass extends FileManager {
+public class FileManagerClass extends FileManager {
     protected EmailValidator emailValidator = EmailValidator.getInstance();
 
-    public FileSetYourEmailClass(File fileName) {
+    public FileManagerClass(File fileName) {
         super(fileName);
     }
 
+    /**
+     * method writing text to file
+     * @param text argument takes the text of input field
+     * @return true if writing to file ending correct and false if is error
+     */
     @Override
-    public boolean writeEmailToFile(String text) {
-        if(text == null || text.isBlank()){
-            return false;
+    public boolean writeToFile(String text) {
+        if(text == null || text.isEmpty()){
+            throw new IllegalArgumentException("Text cannot be null or empty");
         }
         if (!emailValidator.isValid(text)){
-            return false;
+            throw new IllegalArgumentException("Text must be email");
         }
         try{
             saveToFile(text);
         } catch(IOException e){
-            System.out.println("Error: Save text in file isn't possible " + e.getMessage());
-            return false;
+            throw new RuntimeException("Don't find file: " +  e.getMessage());
         }
         return true;
     }
@@ -48,9 +52,9 @@ public class FileSetYourEmailClass extends FileManager {
                 lines.add(line);
             }
         } catch (FileNotFoundException e) {
-            System.err.println("File doesn't exist: " + e.getMessage());
+            throw new RuntimeException("File doesn't exist: " + e.getMessage());
         } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
+            throw new RuntimeException("Error reading file: " + e.getMessage());
         }
         return lines;
     }

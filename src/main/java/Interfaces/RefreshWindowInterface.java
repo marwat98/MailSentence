@@ -1,6 +1,6 @@
 package Interfaces;
 
-import ProgramFileClasses.FileSetYourEmailClass;
+import ProgramFileClasses.FileManagerClass;
 import javafx.scene.control.TextField;
 
 import java.io.File;
@@ -10,7 +10,7 @@ public interface RefreshWindowInterface {
 
     default TextField refreshWindow(TextField textField,String path){
         File myEmailFile = new File(path);
-        FileSetYourEmailClass file = new FileSetYourEmailClass(myEmailFile);
+        FileManagerClass file = new FileManagerClass(myEmailFile);
         Set<String> showContent = file.showEmails();
         for (String data: showContent){
             textField.setText(data);

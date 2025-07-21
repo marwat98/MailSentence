@@ -2,11 +2,11 @@ package JavaFXClasses;
 
 import Interfaces.AlertInterface;
 import OpenAI.OpenAIConfigurator;
+import ProgramFileClasses.FileOpenAIClass;
 import ProgramFileClasses.FileSetSendEmailClass;
-import ProgramFileClasses.FileSetYourEmailClass;
+import ProgramFileClasses.FileManagerClass;
 import Interfaces.WindowViewInterface;
 import MenuProgram.Menu;
-import com.openai.models.responses.Response;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -26,8 +26,8 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
     private final File sendEmailFile = new File(toPath);
     private final File titleFile = new File(titlePath);
     private final File apiFile = new File(apiPath);
-    FileSetYourEmailClass fileSetYourEmailClass = new FileSetYourEmailClass(myEmailFile);
-    FileSetYourEmailClass titleAI = new FileSetYourEmailClass(titleFile);
+    FileManagerClass fileSetYourEmailClass = new FileManagerClass(myEmailFile);
+    FileOpenAIClass titleAI = new FileOpenAIClass(titleFile);
     FileSetSendEmailClass fileSetSendEmailClass = new FileSetSendEmailClass(sendEmailFile);
     TextField fromSetEmail = new TextField();
     TextField toSetEmail = new TextField();
@@ -93,19 +93,23 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
         //Button to generate title and descirption of using OpenAI
         Button generateButton = button.setButtonSize("Generate",200,20);
         generateButton.setOnAction(e->{
+            // OpenAIConguration object with methods
             OpenAIConfigurator openAIConfigurator = new OpenAIConfigurator();
             String apiKey = openAIConfigurator.readAPIKey(apiFile);
             String generateTitle  = openAIConfigurator.generate("Generate only one email title with greetings without description",apiKey);
+            // Input which set generated title
             title.setText(generateTitle);
+            // Variable which get title of input
             String input = title.getText();
-            // I have to creating a method to write get text of TextField to file
-
-            refresh.refreshWindow(title,titlePath);
-
+            // Method writeTOFile which save title in file
+            titleAI.writeToFile(input);
+            // Loop which show title text in input
             Set<String> showTitleAI = titleAI.showEmails();
             for (String data : showTitleAI){
                 title.setText(data);
             }
+            // Method refreshWindow which refresh input after completed input
+            refresh.refreshWindow(title,titlePath);
 
         });
 
@@ -174,7 +178,7 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
     public HBox buttonPartOfWindow(HBox hbox) {
         Button cancel = button.setButtonSize("Cancel",100, 20);
         Button save = button.setButtonSize("Save",100, 20);
-
+        // Action returning to menu window
         cancel.setOnAction( e->{
             Stage currentlyWindow = (Stage) cancel.getScene().getWindow();
             currentlyWindow.close();
@@ -184,7 +188,7 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
                 throw new RuntimeException(ex);
             }
         });
-
+        // Action saving emails in file
         save.setOnAction(e->{
             String fromEmail = fromSetEmail.getText().trim();
             String toEmail = toSetEmail.getText().trim();
@@ -193,8 +197,8 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
                 emptyField(alert);
                 return;
             }
-            boolean fromSavedToFile = fileSetYourEmailClass.writeEmailToFile(fromSetEmail.getText());
-            boolean toSavedToFile = fileSetSendEmailClass.writeEmailToFile(toSetEmail.getText());
+            boolean fromSavedToFile = fileSetYourEmailClass.writeToFile(fromSetEmail.getText());
+            boolean toSavedToFile = fileSetSendEmailClass.writeToFile(toSetEmail.getText());
 
             if(fromSavedToFile && toSavedToFile){
                 sucess(alert);

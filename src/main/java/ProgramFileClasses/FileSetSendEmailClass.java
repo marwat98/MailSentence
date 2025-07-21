@@ -5,7 +5,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import java.io.*;
 import java.util.*;
 
-public class FileSetSendEmailClass extends FileSetYourEmailClass {
+public class FileSetSendEmailClass extends FileManagerClass {
     protected EmailValidator emailValidator = EmailValidator.getInstance();
 
     public FileSetSendEmailClass(File fileName) {
@@ -13,18 +13,17 @@ public class FileSetSendEmailClass extends FileSetYourEmailClass {
     }
 
     @Override
-    public boolean writeEmailToFile(String text) {
-        if (text == null || text.isBlank()) {
-            return false;
+    public boolean writeToFile(String text) {
+        if (text == null || text.isEmpty()) {
+            throw new IllegalArgumentException("Text cannot be null or empty");
         }
         if (!emailValidator.isValid(text)) {
-            return false;
+            throw new IllegalArgumentException("Text must be email");
         }
         try {
             saveToFile(text);
         } catch (IOException e) {
-            System.out.println("Error: Save text in file isn't possible " + e.getMessage());
-            return false;
+            throw new RuntimeException("Don't find file: " +  e.getMessage());
         }
         return true;
     }
