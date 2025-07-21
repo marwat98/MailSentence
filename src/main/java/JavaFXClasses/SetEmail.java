@@ -21,9 +21,11 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
     private final String fromPath = "src/main/java/ProgramFiles/myEmailFile.txt";
     private final String toPath = "src/main/java/ProgramFiles/sendEmailFile.txt";
     private final String titlePath = "src/main/java/ProgramFiles/emailTitleFile.txt";
+    private final String apiPath = "src/main/java/ProgramFiles/APIKEY.txt";
     private final File myEmailFile = new File(fromPath);
     private final File sendEmailFile = new File(toPath);
     private final File titleFile = new File(titlePath);
+    private final File apiFile = new File(apiPath);
     FileSetYourEmailClass fileSetYourEmailClass = new FileSetYourEmailClass(myEmailFile);
     FileSetYourEmailClass titleAI = new FileSetYourEmailClass(titleFile);
     FileSetSendEmailClass fileSetSendEmailClass = new FileSetSendEmailClass(sendEmailFile);
@@ -92,7 +94,8 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
         Button generateButton = button.setButtonSize("Generate",200,20);
         generateButton.setOnAction(e->{
             OpenAIConfigurator openAIConfigurator = new OpenAIConfigurator();
-            String generateTitle  = openAIConfigurator.generate("Generate only one email title with greetings without description");
+            String apiKey = openAIConfigurator.readAPIKey(apiFile);
+            String generateTitle  = openAIConfigurator.generate("Generate only one email title with greetings without description",apiKey);
             title.setText(generateTitle);
             String input = title.getText();
             // I have to creating a method to write get text of TextField to file

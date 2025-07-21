@@ -7,6 +7,10 @@ import com.openai.models.ChatModel;
 import com.openai.models.chat.completions.ChatCompletion;
 import com.openai.models.chat.completions.ChatCompletionCreateParams;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 
 public class OpenAIConfigurator implements OpenAIInterface {
 
@@ -16,8 +20,10 @@ public class OpenAIConfigurator implements OpenAIInterface {
      * @return String with answer
      */
     @Override
-    public String generate(String text){
-        OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+    public String generate(String text, String apiKey){
+        OpenAIClient client = OpenAIOkHttpClient.builder()
+                .apiKey(apiKey)
+                .build();
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
                 .addUserMessage(text)
                 .model(ChatModel.GPT_4_1)
@@ -28,6 +34,16 @@ public class OpenAIConfigurator implements OpenAIInterface {
         return response;
 
     }
-
-
+    @Override
+    public String readAPIKey(File apiFile){
+        try(Scanner readFile = new Scanner(apiFile)){
+            if(readFile.hasNextLine()){
+                return readFile.nextLine().trim();
+            } else {
+                throw new IllegalStateException("File havent open AI Key");
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

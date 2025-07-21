@@ -1,5 +1,8 @@
 package Interfaces;
 
+import java.io.File;
+
 public interface OpenAIInterface {
-    public String generate(String text);
+    String generate(String text,String apiKey);
+    String readAPIKey(File apiFile);
 }
