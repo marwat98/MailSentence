@@ -1,10 +1,10 @@
 package JavaFXClasses;
 
-import Interfaces.AlertInterface;
 import OpenAI.OpenAIConfigurator;
 import ProgramFileClasses.FileOpenAIClass;
 import ProgramFileClasses.FileSetSendEmailClass;
 import ProgramFileClasses.FileManagerClass;
+import Alert.AlertClass;
 import Interfaces.WindowViewInterface;
 import MenuProgram.Menu;
 import javafx.geometry.Insets;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.Set;
 
-public class SetEmail implements WindowViewInterface , AlertInterface {
+public class SetEmail implements WindowViewInterface{
     private final String fromPath = "src/main/java/ProgramFiles/myEmailFile.txt";
     private final String toPath = "src/main/java/ProgramFiles/sendEmailFile.txt";
     private final String titlePath = "src/main/java/ProgramFiles/emailTitleFile.txt";
@@ -33,7 +33,7 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
     TextField toSetEmail = new TextField();
     RefreshWindow refresh = new RefreshWindow();
     ButtonManager button = new ButtonManager();
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    AlertClass alert = new AlertClass();
 
     // method which have settings position title on window
     @Override
@@ -93,16 +93,23 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
         //Button to generate title and descirption of using OpenAI
         Button generateButton = button.setButtonSize("Generate",200,20);
         generateButton.setOnAction(e->{
+
             // OpenAIConguration object with methods
             OpenAIConfigurator openAIConfigurator = new OpenAIConfigurator();
             String apiKey = openAIConfigurator.readAPIKey(apiFile);
             String generateTitle  = openAIConfigurator.generate("Generate only one email title with greetings without description",apiKey);
+
             // Input which set generated title
             title.setText(generateTitle);
             // Variable which get title of input
             String input = title.getText();
             // Method writeTOFile which save title in file
-            titleAI.writeToFile(input);
+            Boolean writeTitle = titleAI.writeToFile(input);
+            if(writeTitle == true){
+                alert.alertMessage("Succes","You save title in file");
+            } else {
+                alert.alertMessage("Fail","Saving title in file failing");
+            }
             // Loop which show title text in input
             Set<String> showTitleAI = titleAI.showEmails();
             for (String data : showTitleAI){
@@ -178,6 +185,7 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
     public HBox buttonPartOfWindow(HBox hbox) {
         Button cancel = button.setButtonSize("Cancel",100, 20);
         Button save = button.setButtonSize("Save",100, 20);
+
         // Action returning to menu window
         cancel.setOnAction( e->{
             Stage currentlyWindow = (Stage) cancel.getScene().getWindow();
@@ -188,24 +196,24 @@ public class SetEmail implements WindowViewInterface , AlertInterface {
                 throw new RuntimeException(ex);
             }
         });
+
         // Action saving emails in file
         save.setOnAction(e->{
             String fromEmail = fromSetEmail.getText().trim();
             String toEmail = toSetEmail.getText().trim();
 
             if(fromEmail.isEmpty() && toEmail.isEmpty()){
-                emptyField(alert);
-                return;
+                alert.alertMessage("Empty field!", "Your field is empty");
             }
             boolean fromSavedToFile = fileSetYourEmailClass.writeToFile(fromSetEmail.getText());
             boolean toSavedToFile = fileSetSendEmailClass.writeToFile(toSetEmail.getText());
 
             if(fromSavedToFile && toSavedToFile){
-                sucess(alert);
+                alert.alertMessage("Success", "You save email");
                 refresh.refreshWindow(fromSetEmail,fromPath);
                 refresh.refreshWindow(toSetEmail,toPath);
             } else {
-                errorField(alert);
+                alert.alertMessage("Fail!","Saving email in file failing");
             }
         });
 
