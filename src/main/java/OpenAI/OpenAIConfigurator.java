@@ -38,22 +38,4 @@ public class OpenAIConfigurator implements OpenAIInterface {
             throw new RuntimeException("OpenAI request failed: " + e.getMessage());
         }
     }
-
-    /**
-     * method read API Key of file
-     * @param apiFile allow implementing File to method
-     * @return String text of file
-     */
-    @Override
-    public String readAPIKey(File apiFile){
-        try(Scanner readFile = new Scanner(apiFile)){
-            if(readFile.hasNextLine()){
-                return readFile.nextLine().trim();
-            } else {
-                throw new IllegalStateException("File haven't open AI Key");
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File doesn't exist" + e.getMessage());
-        }
-    }
 }

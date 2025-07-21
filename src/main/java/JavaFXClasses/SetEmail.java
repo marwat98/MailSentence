@@ -22,12 +22,15 @@ public class SetEmail implements WindowViewInterface{
     private final String toPath = "src/main/java/ProgramFiles/sendEmailFile.txt";
     private final String titlePath = "src/main/java/ProgramFiles/emailTitleFile.txt";
     private final String apiPath = "src/main/java/ProgramFiles/APIKEY.txt";
+    private final String descriptionPath = "src/main/java/ProgramFiles/descriptionFile.txt";
     private final File myEmailFile = new File(fromPath);
     private final File sendEmailFile = new File(toPath);
     private final File titleFile = new File(titlePath);
     private final File apiFile = new File(apiPath);
+    private final File descriptionFile = new File(descriptionPath);
     FileManagerClass fileSetYourEmailClass = new FileManagerClass(myEmailFile);
-    FileOpenAIClass titleAI = new FileOpenAIClass(titleFile);
+    FileOpenAIClass fileOpenAI = new FileOpenAIClass(titleFile);
+    FileOpenAIClass descriptionOpenAI = new FileOpenAIClass(descriptionFile);
     FileSetSendEmailClass fileSetSendEmailClass = new FileSetSendEmailClass(sendEmailFile);
     TextField fromSetEmail = new TextField();
     TextField toSetEmail = new TextField();
@@ -96,28 +99,43 @@ public class SetEmail implements WindowViewInterface{
 
             // OpenAIConguration object with methods
             OpenAIConfigurator openAIConfigurator = new OpenAIConfigurator();
-            String apiKey = openAIConfigurator.readAPIKey(apiFile);
+            // Varaible which read File
+            String apiKey = fileOpenAI.readFile(apiFile);
+            // Variable which generate title using OpenAI
             String generateTitle  = openAIConfigurator.generate("Generate only one email title with greetings without description",apiKey);
-
             // Input which set generated title
             title.setText(generateTitle);
             // Variable which get title of input
             String input = title.getText();
             // Method writeTOFile which save title in file
-            Boolean writeTitle = titleAI.writeToFile(input);
+            Boolean writeTitle = fileOpenAI.writeToFile(input);
             if(writeTitle == true){
                 alert.alertMessage("Succes","You save title in file");
             } else {
                 alert.alertMessage("Fail","Saving title in file failing");
             }
             // Loop which show title text in input
-            Set<String> showTitleAI = titleAI.showEmails();
+            Set<String> showTitleAI = fileOpenAI.showEmails();
             for (String data : showTitleAI){
                 title.setText(data);
             }
             // Method refreshWindow which refresh input after completed input
             refresh.refreshWindow(title,titlePath);
 
+            String readTitle = fileOpenAI.readFile(titleFile);
+            String generateDescription  = openAIConfigurator.generate("Generate a description based on the title inside the file I added" + readTitle,apiKey);
+            description.setText(generateDescription);
+            String inputDescription = description.getText();
+            Boolean writeDescription = descriptionOpenAI.writeToFile(inputDescription);
+            if(writeDescription == true){
+                alert.alertMessage("Succes","You save description in file");
+            } else {
+                alert.alertMessage("Fail","Saving description in file failing");
+            }
+            Set<String> showDescriptionAI = descriptionOpenAI.showEmails();
+            for (String data : showDescriptionAI){
+                description.setText(data);
+            }
         });
 
         // HBox for field "From" with settings inputs and label on window
