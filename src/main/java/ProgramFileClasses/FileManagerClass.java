@@ -44,18 +44,18 @@ public class FileManagerClass extends FileManager {
     }
 
     @Override
-    public Set<String> showEmails() {
-        Set<String> lines = new LinkedHashSet<>();
+    public String showContent() {
+        StringBuilder multiplyLines = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
+            while((line = bufferedReader.readLine()) != null) {
+                multiplyLines.append(line).append("\n");
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File doesn't exist: " + e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException("Error reading file: " + e.getMessage());
         }
-        return lines;
+        return multiplyLines.toString();
     }
 }

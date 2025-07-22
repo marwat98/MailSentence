@@ -17,5 +17,5 @@ public abstract class FileManager {
 
     public abstract void saveToFile(String text) throws IOException;
 
-    public abstract Set<String> showEmails();
+    public abstract String showContent();
 }

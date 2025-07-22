@@ -23,8 +23,8 @@ public class FileOpenAIClass extends FileManagerClass {
     }
 
     @Override
-    public Set<String> showEmails() {
-        return super.showEmails();
+    public String showContent() {
+        return super.showContent();
     }
     /**
      * method read API Key of file

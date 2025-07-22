@@ -38,8 +38,8 @@ public class FileSetSendEmailClass extends FileManagerClass {
 
 
     @Override
-    public Set<String> showEmails() {
-        return super.showEmails();
+    public String showContent() {
+        return super.showContent();
     }
 }
 
