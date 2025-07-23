@@ -3,6 +3,7 @@ package MenuProgram;
 import JavaFXClasses.ButtonManager;
 import JavaFXClasses.SceneManager;
 import JavaFXClasses.SetEmail;
+import JavaFXClasses.Settings;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -55,6 +56,23 @@ public class Menu extends Application {
             sceneManager.openPanel(scene,"EmailAI");
             stage.setScene(scene);
             stage.setResizable(false);
+        });
+
+        settings.setOnAction(e->{
+            Settings settingsClass = new Settings();
+            VBox inputPartOfWindowSettingsVBox = new VBox();
+            HBox titleSettingsHBox = new HBox();
+
+            settingsClass.title(titleSettingsHBox,"Settings");
+            settingsClass.inputPartOfWindow(inputPartOfWindowSettingsVBox);
+
+            VBox layout = new VBox();
+            layout.getChildren().addAll(titleSettingsHBox,inputPartOfWindowSettingsVBox);
+            Scene scene = sceneManager.scenePanel(layout,700,400);
+            sceneManager.openPanel(scene,"EmailAI");
+            stage.setScene(scene);
+            stage.setResizable(false);
+
         });
 
 
