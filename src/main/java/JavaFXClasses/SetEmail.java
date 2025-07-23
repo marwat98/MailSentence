@@ -29,6 +29,7 @@ public class SetEmail implements WindowViewInterface{
     private File apiFile = new File(apiPath);
     private File descriptionFile = new File(descriptionPath);
     private File linkFile = new File(link);
+    Separator separator = new Separator();
     FileManagerClass fileSetYourEmailClass = new FileManagerClass(myEmailFile);
     FileManagerClass readLinkOfFile = new FileManagerClass(linkFile);
     FileOpenAIClass fileOpenAI = new FileOpenAIClass(titleFile);
@@ -61,42 +62,65 @@ public class SetEmail implements WindowViewInterface{
     @Override
     public VBox inputPartOfWindow(VBox vbox ) {
 
-        // Label and TextField for From email input
+        // Label and TextField for From email input and HBox
         Label fromEmailLabel = new Label("From");
         fromEmailLabel.setFont(Font.font(15));
         fromSetEmail.setPrefSize(530,20);
+
+        HBox fromRow = new HBox();
+        fromRow.setAlignment(Pos.TOP_LEFT);
+        fromRow.getChildren().addAll(fromEmailLabel,fromSetEmail);
+        HBox.setMargin(fromEmailLabel,new Insets(15,40,0,15));
+        HBox.setMargin(fromSetEmail,new Insets(15,0,0,10));
 
         //Loop which show email in input fromSetEmail
         String myEmailData = fileSetYourEmailClass.showContent();
         fromSetEmail.setText(myEmailData);
 
 
-        // Label and TextField for To email input
+        // Label and TextField for To email input and HBox
         Label toEmailLabel = new Label("To");
         toEmailLabel.setFont(Font.font(15));
         toSetEmail.setPrefSize(530,20);
+
+        HBox toRow = new HBox();
+        toRow.setAlignment(Pos.TOP_LEFT);
+        toRow.getChildren().addAll(toEmailLabel,toSetEmail);
+        HBox.setMargin(toEmailLabel,new Insets(15,57,0,15));
+        HBox.setMargin(toSetEmail,new Insets(15,0,0,10));
 
         //Loop which show emails in input toSetEmail
         String toSendEmailData = fileSetSendEmailClass.showContent();
         toSetEmail.setText(toSendEmailData);
 
 
-        //Label and TextField for title input
+        //Label,TextField,Hbox for title input
         Label titleLabel = new Label("Title");
         titleLabel.setFont(Font.font(15));
         TextField title = new TextField();
         title.setPrefSize(530,20);
 
+        HBox titleRow = new HBox();
+        titleRow.setAlignment(Pos.TOP_LEFT);
+        titleRow.getChildren().addAll(titleLabel,title);
+        HBox.setMargin(titleLabel,new Insets(15,45,0,15));
+        HBox.setMargin(title,new Insets(15,0,0,10));
+
         // Loop which show title text in input
         String showTitleAI = fileOpenAI.showContent();
         title.setText(showTitleAI);
 
-
-        //Label and TextArea for Description Email
+        //Label,TextArea,HBox for Description Email
         Label descriptionLabel = new Label("Description");
         descriptionLabel.setFont(Font.font(15));
         TextArea description = new TextArea();
         description.setPrefSize(530,130);
+
+        HBox descriptionRow = new HBox();
+        descriptionRow.setAlignment(Pos.TOP_LEFT);
+        descriptionRow.getChildren().addAll(descriptionLabel,description);
+        HBox.setMargin(descriptionLabel,new Insets(45,-2,0,15));
+        HBox.setMargin(description,new Insets(15,0,0,10));
 
         String showDescriptionAI = descriptionOpenAI.showContent();
         description.setText(showDescriptionAI);
@@ -161,35 +185,6 @@ public class SetEmail implements WindowViewInterface{
             }
         });
 
-
-        // HBox for field "From" with settings inputs and label on window
-        HBox fromRow = new HBox();
-        fromRow.setAlignment(Pos.TOP_LEFT);
-        fromRow.getChildren().addAll(fromEmailLabel,fromSetEmail);
-        HBox.setMargin(fromEmailLabel,new Insets(15,40,0,15));
-        HBox.setMargin(fromSetEmail,new Insets(15,0,0,10));
-
-        // HBox for field "To" with settings inputs and label on window
-        HBox toRow = new HBox();
-        toRow.setAlignment(Pos.TOP_LEFT);
-        toRow.getChildren().addAll(toEmailLabel,toSetEmail);
-        HBox.setMargin(toEmailLabel,new Insets(15,57,0,15));
-        HBox.setMargin(toSetEmail,new Insets(15,0,0,10));
-
-        // HBox for field "Title" with settings inputs and label on window
-        HBox titleRow = new HBox();
-        titleRow.setAlignment(Pos.TOP_LEFT);
-        titleRow.getChildren().addAll(titleLabel,title);
-        HBox.setMargin(titleLabel,new Insets(15,45,0,15));
-        HBox.setMargin(title,new Insets(15,0,0,10));
-
-        // HBox for field "Description" with settings inputs and label on window
-        HBox descriptionRow = new HBox();
-        descriptionRow.setAlignment(Pos.TOP_LEFT);
-        descriptionRow.getChildren().addAll(descriptionLabel,description);
-        HBox.setMargin(descriptionLabel,new Insets(45,-2,0,15));
-        HBox.setMargin(description,new Insets(15,0,0,10));
-
         // HBox for button generate message and title of using OpenAI
         HBox buttonRow = new HBox();
         buttonRow.setAlignment(Pos.BOTTOM_CENTER);
@@ -210,7 +205,6 @@ public class SetEmail implements WindowViewInterface{
      */
     @Override
     public VBox separator(VBox vboxSeparator){
-        Separator separator = new Separator();
         separator.setPrefWidth(200);
 
         VBox.setMargin(separator, new Insets(40, 0, 0, 0));

@@ -12,7 +12,7 @@ class FileSetYourEmailClassTest {
 
     @Test
     void shouldNotSaveInvalidEmailToFile() {
-        boolean result = testFile.writeToFile("test1");
+        Boolean result = testFile.writeToFile("test1");
         assertFalse(result, "Invalid email should not be saved");
     }
 

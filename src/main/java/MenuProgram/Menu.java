@@ -10,14 +10,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class Menu extends Application {
     @Override
@@ -62,12 +59,16 @@ public class Menu extends Application {
             Settings settingsClass = new Settings();
             VBox inputPartOfWindowSettingsVBox = new VBox();
             HBox titleSettingsHBox = new HBox();
+            VBox separatorSettingsVBox = new VBox();
+            HBox buttonsSettingsHBox = new HBox();
 
             settingsClass.title(titleSettingsHBox,"Settings");
             settingsClass.inputPartOfWindow(inputPartOfWindowSettingsVBox);
+            settingsClass.separator(separatorSettingsVBox);
+            settingsClass.buttonPartOfWindow(buttonsSettingsHBox);
 
             VBox layout = new VBox();
-            layout.getChildren().addAll(titleSettingsHBox,inputPartOfWindowSettingsVBox);
+            layout.getChildren().addAll(titleSettingsHBox,inputPartOfWindowSettingsVBox,separatorSettingsVBox,buttonsSettingsHBox);
             Scene scene = sceneManager.scenePanel(layout,700,400);
             sceneManager.openPanel(scene,"EmailAI");
             stage.setScene(scene);
