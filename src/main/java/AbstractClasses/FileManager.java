@@ -3,13 +3,14 @@ package AbstractClasses;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Set;
 
 
 public abstract class FileManager {
-    protected File fileName;
+    protected Path fileName;
 
-    public FileManager(File fileName){
+    public FileManager(Path fileName){
         this.fileName = fileName;
     }
 

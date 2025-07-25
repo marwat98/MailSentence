@@ -4,14 +4,13 @@ import AbstractClasses.FileManager;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.nio.file.Path;
 
 
 public class FileManagerClass extends FileManager {
     protected EmailValidator emailValidator = EmailValidator.getInstance();
 
-    public FileManagerClass(File fileName) {
+    public FileManagerClass(Path fileName) {
         super(fileName);
     }
 
@@ -38,7 +37,7 @@ public class FileManagerClass extends FileManager {
 
     @Override
     public void saveToFile(String text) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(fileName)))){
             writer.write(text);
         }
     }
@@ -46,7 +45,7 @@ public class FileManagerClass extends FileManager {
     @Override
     public String showContent() {
         StringBuilder multiplyLines = new StringBuilder();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(String.valueOf(fileName)))) {
             String line;
             while((line = bufferedReader.readLine()) != null) {
                 multiplyLines.append(line).append("\n");

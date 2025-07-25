@@ -30,6 +30,7 @@ public class Menu extends Application {
         //Menu buttons option
         ButtonManager button = new ButtonManager();
         Button setEmails = button.setButtonSize("Set Emails",200, 40);
+        Button generetingSettings = button.setButtonSize("AI Settings",200, 40);
         Button settings = button.setButtonSize("Settings",200, 40);
         Button exit = button.setButtonSize("Exit",200, 40);
 
@@ -53,6 +54,10 @@ public class Menu extends Application {
             sceneManager.openPanel(scene,"EmailAI");
             stage.setScene(scene);
             stage.setResizable(false);
+        });
+
+        generetingSettings.setOnAction(e->{
+
         });
 
         settings.setOnAction(e->{
@@ -81,7 +86,7 @@ public class Menu extends Application {
         VBox vbox = new VBox(20);
         vbox.setAlignment(Pos.TOP_CENTER);
         vbox.setPadding(new Insets(30));
-        vbox.getChildren().addAll(label,setEmails,settings,exit);
+        vbox.getChildren().addAll(label,setEmails,generetingSettings,settings,exit);
 
         //Menu scene
         VBox layout = new VBox();

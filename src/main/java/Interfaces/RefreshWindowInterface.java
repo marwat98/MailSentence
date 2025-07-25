@@ -1,13 +1,9 @@
 package Interfaces;
 
-import ProgramFileClasses.FileManagerClass;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 
-import java.io.File;
-import java.util.Set;
+import java.nio.file.Path;
 
 public interface RefreshWindowInterface {
-    void refreshWindow(TextInputControl inputControl, String path);
+    void refreshWindow(TextInputControl inputControl, Path path);
 }

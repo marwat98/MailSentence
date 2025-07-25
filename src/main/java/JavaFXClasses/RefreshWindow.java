@@ -5,6 +5,7 @@ import ProgramFileClasses.FileManagerClass;
 import javafx.scene.control.TextInputControl;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Set;
 
 /**
@@ -14,9 +15,9 @@ import java.util.Set;
  */
 public class RefreshWindow implements RefreshWindowInterface {
     @Override
-    public void refreshWindow(TextInputControl inputControl, String path) {
-        File myEmailFile = new File(path);
-        FileManagerClass file = new FileManagerClass(myEmailFile);
+    public void refreshWindow(TextInputControl inputControl, Path path) {
+        File myEmailFile = new File(String.valueOf(path));
+        FileManagerClass file = new FileManagerClass(myEmailFile.toPath());
 
         String content = file.showContent();
         inputControl.setText(content);

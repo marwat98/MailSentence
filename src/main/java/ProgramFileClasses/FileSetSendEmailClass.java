@@ -3,12 +3,12 @@ package ProgramFileClasses;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.*;
-import java.util.*;
+import java.nio.file.Path;
 
 public class FileSetSendEmailClass extends FileManagerClass {
     protected EmailValidator emailValidator = EmailValidator.getInstance();
 
-    public FileSetSendEmailClass(File fileName) {
+    public FileSetSendEmailClass(Path fileName) {
         super(fileName);
     }
 
@@ -30,7 +30,7 @@ public class FileSetSendEmailClass extends FileManagerClass {
 
     @Override
     public void saveToFile(String text) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(fileName), true))) {
             writer.write(text);
             writer.write(", ");
         }

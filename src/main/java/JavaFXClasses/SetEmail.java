@@ -15,31 +15,37 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class SetEmail implements WindowViewInterface{
-    private String fromPath = "src/main/java/ProgramFiles/myEmailFile.txt";
-    private String toPath = "src/main/java/ProgramFiles/sendEmailFile.txt";
-    private String titlePath = "src/main/java/ProgramFiles/emailTitleFile.txt";
-    private String apiPath = "src/main/java/ProgramFiles/APIKEY.txt";
-    private String descriptionPath = "src/main/java/ProgramFiles/descriptionFile.txt";
-    private String link = "src/main/java/ProgramFiles/link.txt";
-    private File myEmailFile = new File(fromPath);
-    private File sendEmailFile = new File(toPath);
-    private File titleFile = new File(titlePath);
-    private File apiFile = new File(apiPath);
-    private File descriptionFile = new File(descriptionPath);
-    private File linkFile = new File(link);
-    Separator separator = new Separator();
-    FileManagerClass fileSetYourEmailClass = new FileManagerClass(myEmailFile);
-    FileManagerClass readLinkOfFile = new FileManagerClass(linkFile);
-    FileOpenAIClass fileOpenAI = new FileOpenAIClass(titleFile);
-    FileOpenAIClass descriptionOpenAI = new FileOpenAIClass(descriptionFile);
-    FileSetSendEmailClass fileSetSendEmailClass = new FileSetSendEmailClass(sendEmailFile);
-    TextField fromSetEmail = new TextField();
-    TextField toSetEmail = new TextField();
-    RefreshWindow refresh = new RefreshWindow();
-    ButtonManager button = new ButtonManager();
-    AlertClass alert = new AlertClass();
+    public static final String MAIN_PACKAGE_FILES = "src/main/ProgramFiles";
+    private static final Path FROM_PATH = Paths.get(MAIN_PACKAGE_FILES , "myEmailFile.txt");
+    private static final Path TO_PATH = Paths.get(MAIN_PACKAGE_FILES, "sendEmailFile.txt");
+    private static final Path TITLE_PATH = Paths.get(MAIN_PACKAGE_FILES , "emailTitleFile.txt");
+    private static final Path API_PATH = Paths.get(MAIN_PACKAGE_FILES , "APIKEY.txt");
+    private static final Path DESTRIPTION_PATH = Paths.get(MAIN_PACKAGE_FILES , "descriptionFile.txt");
+    private static final Path LINK = Paths.get(MAIN_PACKAGE_FILES, "link.txt");
+
+    public File myEmailFile = new File(String.valueOf(FROM_PATH));
+    public File sendEmailFile = new File(String.valueOf(TO_PATH));
+    public File titleFile = new File(String.valueOf(TITLE_PATH));
+    public File apiFile = new File(String.valueOf(API_PATH));
+    public File descriptionFile = new File(String.valueOf(DESTRIPTION_PATH));
+    public File linkFile = new File(String.valueOf(LINK));
+
+    public FileManagerClass fileSetYourEmailClass = new FileManagerClass(myEmailFile.toPath());
+    public FileManagerClass readLinkOfFile = new FileManagerClass(linkFile.toPath());
+    public FileOpenAIClass fileOpenAI = new FileOpenAIClass(titleFile.toPath());
+    public FileOpenAIClass descriptionOpenAI = new FileOpenAIClass(descriptionFile.toPath());
+    public FileSetSendEmailClass fileSetSendEmailClass = new FileSetSendEmailClass(sendEmailFile.toPath());
+
+    public TextField fromSetEmail = new TextField();
+    public TextField toSetEmail = new TextField();
+    public Separator separator = new Separator();
+    public RefreshWindow refresh = new RefreshWindow();
+    public ButtonManager button = new ButtonManager();
+    public AlertClass alert = new AlertClass();
 
     // method which have settings position title on window
     @Override
@@ -147,7 +153,7 @@ public class SetEmail implements WindowViewInterface{
                 alert.alertMessage("Fail","❌ Generating title fail!");
             }
             // Method refreshWindow which refresh input after completed input
-            refresh.refreshWindow(title,titlePath);
+            refresh.refreshWindow(title, TITLE_PATH);
 
             String readTitle = fileOpenAI.readFile(titleFile);
             String generateDescription  = openAIConfigurator.generate("Generate a description based on the title inside the file I added"
@@ -161,7 +167,7 @@ public class SetEmail implements WindowViewInterface{
             } else {
                 alert.alertMessage("Fail","❌ Generating description fail!");
             }
-            refresh.refreshWindow(description,descriptionPath);
+            refresh.refreshWindow(description,DESTRIPTION_PATH);
         });
 
         // Action saving emails in file
@@ -178,8 +184,8 @@ public class SetEmail implements WindowViewInterface{
 
             if(fromSavedToFile && toSavedToFile){
                 alert.alertMessage("Success", "✅ You save email");
-                refresh.refreshWindow(fromSetEmail,fromPath);
-                refresh.refreshWindow(toSetEmail,toPath);
+                refresh.refreshWindow(fromSetEmail,FROM_PATH);
+                refresh.refreshWindow(toSetEmail,TO_PATH);
             } else {
                 alert.alertMessage("Fail!","❌ Saving email in file failing");
             }

@@ -1,11 +1,11 @@
 package ProgramFileClasses;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.Scanner;
-import java.util.Set;
 
 public class FileOpenAIClass extends FileManagerClass {
-    public FileOpenAIClass(File fileName) {
+    public FileOpenAIClass(Path fileName) {
         super(fileName);
     }
 
@@ -14,7 +14,7 @@ public class FileOpenAIClass extends FileManagerClass {
         if (text == null || text.isEmpty()) {
             throw new IllegalArgumentException("Text cannot be null or empty");
         }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(fileName)))) {
             writer.write(text);
         } catch (IOException e) {
             throw new RuntimeException("Don't find file: " + e.getMessage());
