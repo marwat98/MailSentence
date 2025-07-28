@@ -1,9 +1,6 @@
 package MenuProgram;
 
-import JavaFXClasses.ButtonManager;
-import JavaFXClasses.SceneManager;
-import JavaFXClasses.SetEmail;
-import JavaFXClasses.Settings;
+import JavaFXClasses.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -30,8 +27,8 @@ public class Menu extends Application {
         //Menu buttons option
         ButtonManager button = new ButtonManager();
         Button setEmails = button.setButtonSize("Set Emails",200, 40);
-        Button generetingSettings = button.setButtonSize("AI Settings",200, 40);
         Button settings = button.setButtonSize("Settings",200, 40);
+        Button settingsAI = button.setButtonSize("AI Settings",200, 40);
         Button exit = button.setButtonSize("Exit",200, 40);
 
         //Buttons actions
@@ -56,14 +53,10 @@ public class Menu extends Application {
             stage.setResizable(false);
         });
 
-        generetingSettings.setOnAction(e->{
-
-        });
-
         settings.setOnAction(e->{
             Settings settingsClass = new Settings();
-            VBox inputPartOfWindowSettingsVBox = new VBox();
             HBox titleSettingsHBox = new HBox();
+            VBox inputPartOfWindowSettingsVBox = new VBox();
             VBox separatorSettingsVBox = new VBox();
             HBox buttonsSettingsHBox = new HBox();
 
@@ -81,12 +74,31 @@ public class Menu extends Application {
 
         });
 
+        settingsAI.setOnAction(e->{
+            AISettings aiSettings = new AISettings();
+            HBox titleAISettingsHBox = new HBox();
+            VBox inputPartOfWindowAISettingsVBox = new VBox();
+            VBox separatorAISettingsVBox = new VBox();
+            HBox buttonsAISettingsHBox = new HBox();
+
+            aiSettings.title(titleAISettingsHBox,"AI Settings");
+            aiSettings.inputPartOfWindow(inputPartOfWindowAISettingsVBox);
+            aiSettings.separator(separatorAISettingsVBox);
+            aiSettings.buttonPartOfWindow(buttonsAISettingsHBox);
+
+            VBox layout = new VBox();
+            layout.getChildren().addAll(titleAISettingsHBox,inputPartOfWindowAISettingsVBox,separatorAISettingsVBox,buttonsAISettingsHBox );
+            Scene scene = sceneManager.scenePanel(layout,700,400);
+            sceneManager.openPanel(scene,"EmailAI");
+            stage.setScene(scene);
+            stage.setResizable(false);
+        });
 
         //Vbox settings
         VBox vbox = new VBox(20);
         vbox.setAlignment(Pos.TOP_CENTER);
         vbox.setPadding(new Insets(30));
-        vbox.getChildren().addAll(label,setEmails,generetingSettings,settings,exit);
+        vbox.getChildren().addAll(label,setEmails,settings,settingsAI,exit);
 
         //Menu scene
         VBox layout = new VBox();

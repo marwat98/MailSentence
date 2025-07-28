@@ -37,6 +37,9 @@ public class Settings extends SetEmail implements WindowViewInterface {
     public ObservableList<String> postOfficess = FXCollections.observableArrayList("Gmail","Outlook","Wp","Onet");
     public ComboBox<String> postOfficeBox = new ComboBox<>(postOfficess);
 
+    Button cancel = button.setButtonSize("Cancel",100, 20);
+    Button save = button.setButtonSize("Save",100, 20);
+
     @Override
     public HBox title(HBox hbox, String labelText) {
         Label titleSettings = new Label(labelText);
@@ -126,8 +129,6 @@ public class Settings extends SetEmail implements WindowViewInterface {
 
     @Override
     public HBox buttonPartOfWindow(HBox hbox) {
-        Button cancel = button.setButtonSize("Cancel",100, 20);
-        Button save = button.setButtonSize("Save",100, 20);
 
         // Action returning to menu window
         cancel.setOnAction( e->{

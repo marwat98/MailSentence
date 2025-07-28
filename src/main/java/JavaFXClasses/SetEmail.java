@@ -26,7 +26,11 @@ public class SetEmail implements WindowViewInterface{
     private static final Path API_PATH = Paths.get(MAIN_PACKAGE_FILES , "APIKEY.txt");
     private static final Path DESTRIPTION_PATH = Paths.get(MAIN_PACKAGE_FILES , "descriptionFile.txt");
     private static final Path LINK = Paths.get(MAIN_PACKAGE_FILES, "link.txt");
+    private static final Path PROMPT_TITLE_AI = Paths.get(MAIN_PACKAGE_FILES,"promptTitleAIFile.txt");
+    private static final Path PROMPT_DESCRIPTION_AI = Paths.get(MAIN_PACKAGE_FILES,"promptDescriptionAIFile.txt");
 
+    public File titleAIFile = new File(String.valueOf(PROMPT_TITLE_AI));
+    public File descriptionAIFile = new File(String.valueOf(PROMPT_DESCRIPTION_AI));
     public File myEmailFile = new File(String.valueOf(FROM_PATH));
     public File sendEmailFile = new File(String.valueOf(TO_PATH));
     public File titleFile = new File(String.valueOf(TITLE_PATH));
@@ -137,36 +141,54 @@ public class SetEmail implements WindowViewInterface{
 
             // OpenAIConguration object with methods
             OpenAIConfigurator openAIConfigurator = new OpenAIConfigurator();
+
             // Varaible which read File
             String apiKey = fileOpenAI.readFile(apiFile);
+
+            // Variable which read prompt title file
+            String readPromptTitleFile = fileOpenAI.readFile(titleAIFile);
+
             // Variable which generate title using OpenAI
-            String generateTitle  = openAIConfigurator.generate("Generate only one email title with sales offer and date when this offer finish",apiKey);
+            String generateTitle  = openAIConfigurator.generate(readPromptTitleFile,apiKey);
+
             // Input which set generated title
             title.setText(generateTitle);
+
             // Variable which get title of input
             String input = title.getText();
-            // Method writeTOFile which save title in file
-            Boolean writeTitle = fileOpenAI.writeToFile(input);
-            if(writeTitle == true){
+
+            // Variable which checking if writeToFile method return true
+            boolean writeTitle = fileOpenAI.writeToFile(input);
+            if(writeTitle){
                 alert.alertMessage("Succes","✅ Generating title");
             } else {
                 alert.alertMessage("Fail","❌ Generating title fail!");
             }
-            // Method refreshWindow which refresh input after completed input
+            // refresh window after showing title
             refresh.refreshWindow(title, TITLE_PATH);
 
+            // Variable which read title File
             String readTitle = fileOpenAI.readFile(titleFile);
-            String generateDescription  = openAIConfigurator.generate("Generate a description based on the title inside the file I added"
-                    + readTitle +
-                    "Sentence have to max 10 words on the end write Look more and click in link below additionaly in the next line add link of file" + readLinkOfFile.showContent() + "and add one empty next line and second Your sincerely Sales Menager AI",apiKey);
+
+            // Variable which read prompt description file
+            String readPromptDescriptionFile = fileOpenAI.readFile(descriptionAIFile);
+
+            // Varaible which set description to generating
+            String generateDescription  = openAIConfigurator.generate(readPromptDescriptionFile,apiKey);
+
             description.setText(generateDescription);
+
+            // Variable which show description in TextField
             String inputDescription = description.getText();
-            Boolean writeDescription = descriptionOpenAI.writeToFile(inputDescription);
-            if(writeDescription == true){
+
+            // Variable which checking if writeToFile method return true
+            boolean writeDescription = descriptionOpenAI.writeToFile(inputDescription);
+            if(writeDescription){
                 alert.alertMessage("Succes","✅ Generating descirption");
             } else {
                 alert.alertMessage("Fail","❌ Generating description fail!");
             }
+            // refresh window after showing description
             refresh.refreshWindow(description,DESTRIPTION_PATH);
         });
 
@@ -202,7 +224,6 @@ public class SetEmail implements WindowViewInterface{
 
         return vbox;
     }
-
 
     /**
      * method which set separator position on window
