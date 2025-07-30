@@ -1,4 +1,4 @@
-package JavaFXClasses;
+package SceneManager;
 
 import AbstractClasses.SceneSettingsClass;
 import javafx.scene.Scene;

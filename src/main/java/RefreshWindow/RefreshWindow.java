@@ -1,12 +1,11 @@
-package JavaFXClasses;
+package RefreshWindow;
 
 import Interfaces.RefreshWindowInterface;
-import ProgramFileClasses.FileManagerClass;
+import FileManagerClasses.FileManagerClass;
 import javafx.scene.control.TextInputControl;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.Set;
 
 /**
  * Class that implements an interface containing a default method

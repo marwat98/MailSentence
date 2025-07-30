@@ -1,4 +1,4 @@
-package OpenAI;
+package OpenAIConfigurator;
 
 import Interfaces.OpenAIInterface;
 import com.openai.client.OpenAIClient;
@@ -6,9 +6,6 @@ import com.openai.client.okhttp.OpenAIOkHttpClient;
 import com.openai.models.ChatModel;
 import com.openai.models.chat.completions.ChatCompletion;
 import com.openai.models.chat.completions.ChatCompletionCreateParams;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 
 public class OpenAIConfigurator implements OpenAIInterface {

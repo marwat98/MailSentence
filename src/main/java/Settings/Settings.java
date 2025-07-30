@@ -1,8 +1,9 @@
-package JavaFXClasses;
+package Settings;
 
 import Interfaces.WindowViewInterface;
 import MenuProgram.Menu;
-import ProgramFileClasses.FileOpenAIClass;
+import FileManagerClasses.FileManagerOpenAIClass;
+import SetEmail.SetEmail;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -21,18 +22,22 @@ public class Settings extends SetEmail implements WindowViewInterface {
     private static final Path HOST_ADDRESS = Paths.get(MAIN_PACKAGE_FILES,"hostAddress.txt");
     private static final Path POST_OFFICE = Paths.get(MAIN_PACKAGE_FILES,"postOfficeChoose.txt");
     private static final Path POST_PASSWORD = Paths.get(MAIN_PACKAGE_FILES,"postPassword.txt");
+    private static final Path PLACE_OF_CHOICE = Paths.get(MAIN_PACKAGE_FILES,"searchPoleDirection.txt");
 
     public File hostAddressFile = new File(String.valueOf(HOST_ADDRESS));
     public File postPasswordFile = new File(String.valueOf(POST_PASSWORD));
+    public File placeOfChoiceFile = new File(String.valueOf(PLACE_OF_CHOICE));
 
-    public FileOpenAIClass postOfficeOption = new FileOpenAIClass(POST_OFFICE);
-    public FileOpenAIClass hostAddressSave = new FileOpenAIClass(hostAddressFile.toPath());
-    public FileOpenAIClass postPasswordSave = new FileOpenAIClass(postPasswordFile.toPath());
-    public FileOpenAIClass apiKeySave = new FileOpenAIClass(apiFile.toPath());
+    public FileManagerOpenAIClass postOfficeOption = new FileManagerOpenAIClass(POST_OFFICE);
+    public FileManagerOpenAIClass hostAddressSave = new FileManagerOpenAIClass(hostAddressFile.toPath());
+    public FileManagerOpenAIClass postPasswordSave = new FileManagerOpenAIClass(postPasswordFile.toPath());
+    public FileManagerOpenAIClass apiKeySave = new FileManagerOpenAIClass(apiFile.toPath());
+    public FileManagerOpenAIClass placeOfChoiceSave = new FileManagerOpenAIClass(placeOfChoiceFile.toPath());
 
     public PasswordField apiFieldKey = new PasswordField();
     public PasswordField tokenOrPasswordPostOfficeField = new PasswordField();
     public TextField hostAddressField = new TextField();
+    public TextField placeOfChoiceLabelField = new TextField();
 
     public ObservableList<String> postOfficess = FXCollections.observableArrayList("Gmail","Outlook","Wp","Onet");
     public ComboBox<String> postOfficeBox = new ComboBox<>(postOfficess);
@@ -112,7 +117,22 @@ public class Settings extends SetEmail implements WindowViewInterface {
         HBox.setMargin(tokenOrPostOfficePasswordLabel,new Insets(20,10,0,10));
         HBox.setMargin(tokenOrPasswordPostOfficeField,new Insets(20,0,0,10));
 
-        vbox.getChildren().addAll(apiHBox,postOfficeHBox,hostAdressHBox,tokenOrPasswordPostOfficeHBox);
+        //Label and PasswordField for email token or password
+        Label placeOfChoiceLabel = new Label("Place of choice");
+        placeOfChoiceLabel.setFont(Font.font(15));
+        placeOfChoiceLabelField.setPrefSize(530,20);
+
+        //Show content post password file
+        String placeOfChoice = placeOfChoiceSave.readFile(placeOfChoiceFile);
+        placeOfChoiceLabelField.setText(placeOfChoice);
+
+        HBox pathForSearchPlaceOfFileHBox = new HBox();
+        pathForSearchPlaceOfFileHBox.setAlignment(Pos.TOP_LEFT);
+        pathForSearchPlaceOfFileHBox.getChildren().addAll(placeOfChoiceLabel,placeOfChoiceLabelField);
+        HBox.setMargin(placeOfChoiceLabel,new Insets(20,7,0,10));
+        HBox.setMargin(placeOfChoiceLabelField,new Insets(20,0,0,10));
+
+        vbox.getChildren().addAll(apiHBox,postOfficeHBox,hostAdressHBox,tokenOrPasswordPostOfficeHBox,pathForSearchPlaceOfFileHBox);
 
         return vbox;
     }
@@ -121,7 +141,7 @@ public class Settings extends SetEmail implements WindowViewInterface {
     public VBox separator(VBox vboxSeparator) {
         separator.setPrefWidth(200);
 
-        VBox.setMargin(separator, new Insets(110, 0, 0, 0));
+        VBox.setMargin(separator, new Insets(70, 0, 0, 0));
         vboxSeparator.getChildren().addAll(separator);
 
         return vboxSeparator;
@@ -147,6 +167,7 @@ public class Settings extends SetEmail implements WindowViewInterface {
           String choosePostOfficeOption = postOfficeBox.getValue();
           String checkHostAdress = hostAddressField.getText().trim();
           String checkPostPassword = tokenOrPasswordPostOfficeField.getText().trim();
+          String checkPlaceOfChoice = placeOfChoiceLabelField.getText().trim();
 
           if(checkAPIKey.isEmpty()){
               alert.alertMessage("Empty field!", "❌ Your API Key field is empty");
@@ -160,13 +181,19 @@ public class Settings extends SetEmail implements WindowViewInterface {
               alert.alertMessage("Empty field!", "❌ Your Post Password field is empty");
               return;
           }
+            if(checkPlaceOfChoice.isEmpty()){
+                alert.alertMessage("Empty field!", "❌ Your Place of choice field is empty");
+                return;
+            }
+
 
           boolean saveAPIKey = apiKeySave.writeToFile(checkAPIKey);
           boolean saveChoosePostOfficeOption = postOfficeOption.writeToFile(choosePostOfficeOption);
           boolean saveHostAdress = hostAddressSave.writeToFile(checkHostAdress);
           boolean savePostPassword = postPasswordSave.writeToFile(checkPostPassword);
+          boolean savePlaceOfChoice = placeOfChoiceSave.writeToFile(checkPlaceOfChoice);
 
-          if(saveAPIKey && saveChoosePostOfficeOption && saveHostAdress && savePostPassword){
+          if(saveAPIKey && saveChoosePostOfficeOption && saveHostAdress && savePostPassword && savePlaceOfChoice){
               alert.alertMessage("Succes","✅ Settings are saving");
           }
 

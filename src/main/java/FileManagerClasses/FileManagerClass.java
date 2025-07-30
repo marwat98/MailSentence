@@ -1,4 +1,4 @@
-package ProgramFileClasses;
+package FileManagerClasses;
 
 import AbstractClasses.FileManager;
 import org.apache.commons.validator.routines.EmailValidator;

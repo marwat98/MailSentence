@@ -1,4 +1,4 @@
-package ProgramFileClasses;
+package FileManagerClasses;
 
 import org.junit.jupiter.api.Test;
 import java.io.File;

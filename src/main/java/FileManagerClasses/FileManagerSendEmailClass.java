@@ -1,14 +1,14 @@
-package ProgramFileClasses;
+package FileManagerClasses;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.*;
 import java.nio.file.Path;
 
-public class FileSetSendEmailClass extends FileManagerClass {
+public class FileManagerSendEmailClass extends FileManagerClass {
     protected EmailValidator emailValidator = EmailValidator.getInstance();
 
-    public FileSetSendEmailClass(Path fileName) {
+    public FileManagerSendEmailClass(Path fileName) {
         super(fileName);
     }
 

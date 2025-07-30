@@ -1,11 +1,11 @@
-package ProgramFileClasses;
+package FileManagerClasses;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-public class FileOpenAIClass extends FileManagerClass {
-    public FileOpenAIClass(Path fileName) {
+public class FileManagerOpenAIClass extends FileManagerClass {
+    public FileManagerOpenAIClass(Path fileName) {
         super(fileName);
     }
 
@@ -27,9 +27,9 @@ public class FileOpenAIClass extends FileManagerClass {
         return super.showContent();
     }
     /**
-     * method read API Key of file
+     * method read API Key
      * @param apiFile allow implementing File to method
-     * @return String text of file
+     * @return String text
      */
     public String readFile(File apiFile){
         try(Scanner readFile = new Scanner(apiFile)){
